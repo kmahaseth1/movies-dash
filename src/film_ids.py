@@ -57,6 +57,3 @@ tmdb_ids = []
 for year in range(begin, end+1):
     year_ids = get_ids_by_year(year)
     tmdb_ids.extend(year_ids)
-
-# Validate output
-print(tmdb_ids[:25])
