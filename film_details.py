@@ -1,4 +1,5 @@
 import requests
+import time
 
 def get_movie_details(details_url, api_key, ids):
     """
@@ -7,12 +8,16 @@ def get_movie_details(details_url, api_key, ids):
     # List to hold the dictionaries of film details
     film_details = []
 
-    # API calls for each movie in the list
     for id in ids:
-        film_url = f"{details_url}{id}"
-        r = requests.get(film_url, params={'api_key': api_key})
-        film_raw = r.json()
+        # API calls for each movie in the list
+        try:
+            film_url = f"{details_url}{id}"
+            r = requests.get(film_url, params={'api_key': api_key})
+            film_raw = r.json()
+        except (requests.exceptions.JSONDecodeError) as e:
+            continue
 
+        # Extract relevant data
         film_dict = {
             'name': film_raw['title'],
             'budget': film_raw['budget'],
@@ -23,6 +28,10 @@ def get_movie_details(details_url, api_key, ids):
             'release_year': int(film_raw['release_date'][:4])
         }
 
+        # Add the film to the list
         film_details.append(film_dict)
+
+        # Brief sleep to respect rate limits
+        time.sleep(0.1)
 
     return film_details
