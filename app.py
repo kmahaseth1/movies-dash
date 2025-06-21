@@ -12,23 +12,15 @@ api_key = os.getenv("TMDB_API")
 discover_url = "https://api.themoviedb.org/3/discover/movie"
 details_url = "https://api.themoviedb.org/3/movie/"
 
-# Import ids for 2020 - 2024
-static_ids = pd.read_csv('data/static_ids.csv', header=None)[0].tolist()
+# Get the movie ids
+ids = get_ids_by_year(discover_url, api_key, 2025)
 
-# Get the movie ids for 2025
-ids_2025 = get_ids_by_year(discover_url, api_key, 2025)
+# Extract movie details using get_movie_details
+films = get_movie_details(details_url, api_key, ids)
 
-# Combine the lists
-ids = static_ids + ids_2025
-print(ids[:50])
+print(films[:10])
 
 """
-# Extract movie details using get_movie_details
-films = get_movie_details(details_url, api_key, tmdb_ids)
-
-print(films[:5])
-
-
 # Create a Dash object
 app = Dash(__name__)
 
