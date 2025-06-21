@@ -10,9 +10,7 @@ base_url = "https://api.themoviedb.org/3/movie/"
 
 # Small list of ids to check if the api call works 
 # REPLACE WITH ID LIST film_ids.py ONCE THE CODE IS VALIDATED
-# ids = [135397, 150540, 150689, 216015, 177677]
-id = [177677]
-
+ids = [135397, 150540, 150689, 216015, 177677]
 
 def get_movie_details(ids):
     """
@@ -38,10 +36,10 @@ def get_movie_details(ids):
 
         film_details.append(film_dict)
 
-    return film_dict
+    return film_details
 
 # check with one id
-film_deets = get_movie_details(id)
+film_deets = get_movie_details(ids)
 print(film_deets)
 
 
