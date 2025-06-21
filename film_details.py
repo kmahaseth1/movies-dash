@@ -16,8 +16,8 @@ def get_movie_details(details_url, api_key, ids):
         film_dict = {
             'name': film_raw['title'],
             'budget': film_raw['budget'],
-            'genre': film_raw['genres'][0]['name'],
-            'production_countries': film_raw['production_countries'][0]['name'],
+            'genre': film_raw['genres'][0]['name'] if film_raw['genres'] else None,
+            'production_countries': film_raw['production_countries'][0]['name'] if film_raw['production_countries'] else None,
             'revenue': film_raw['revenue'],
             'vote_average': film_raw['vote_average'],
             'release_year': int(film_raw['release_date'][:4])
