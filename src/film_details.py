@@ -38,21 +38,3 @@ def get_movie_details(ids):
         film_details.append(film_dict)
 
     return film_details
-
-# check with one id
-film_deets = get_movie_details(ids)
-print(film_deets)
-
-
-
-
-
-
-
-        
-    
-
-
-    
-
-
