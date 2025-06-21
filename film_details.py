@@ -12,7 +12,7 @@ def get_movie_details(details_url, api_key, ids):
         # API calls for each movie in the list
         try:
             film_url = f"{details_url}{id}"
-            r = requests.get(film_url, params={'api_key': api_key})
+            r = requests.get(film_url, params={'api_key': api_key}, timeout=(10, 60))
             film_raw = r.json()
         except (requests.exceptions.JSONDecodeError) as e:
             continue
