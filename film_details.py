@@ -1,18 +1,6 @@
 import requests
-import os
-from dotenv import load_dotenv
-import time
 
-# API call setup
-load_dotenv()
-api_key = os.getenv("TMDB_API")
-base_url = "https://api.themoviedb.org/3/movie/"
-
-# Small list of ids to check if the api call works 
-# REPLACE WITH ID LIST film_ids.py ONCE THE CODE IS VALIDATED
-ids = [135397, 150540, 150689, 216015, 177677]
-
-def get_movie_details(ids):
+def get_movie_details(details_url, api_key, ids):
     """
     Get information about movies using the TMDB ids 
     """
@@ -21,7 +9,7 @@ def get_movie_details(ids):
 
     # API calls for each movie in the list
     for id in ids:
-        film_url = f"{base_url}{id}"
+        film_url = f"{details_url}{id}"
         r = requests.get(film_url, params={'api_key': api_key})
         film_raw = r.json()
 
