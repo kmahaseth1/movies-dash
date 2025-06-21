@@ -31,7 +31,8 @@ def get_movie_details(ids):
             'genre': film_raw['genres'][0]['name'],
             'production_countries': film_raw['production_countries'][0]['name'],
             'revenue': film_raw['revenue'],
-            'vote_average': film_raw['vote_average']
+            'vote_average': film_raw['vote_average'],
+            'release_year': int(film_raw['release_date'][:4])
         }
 
         film_details.append(film_dict)
