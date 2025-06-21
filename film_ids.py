@@ -1,14 +1,7 @@
 import requests
-import os
-from dotenv import load_dotenv
 import time
 
-# API call setup
-load_dotenv()
-api_key = os.getenv("TMDB_API")
-base_url = "https://api.themoviedb.org/3/discover/movie"
-
-def get_ids_by_year(year):
+def get_ids_by_year(discover_url, api_key, year):
     """
     Get the THDB ids for movies released in a specific year
     """
@@ -26,7 +19,7 @@ def get_ids_by_year(year):
         }
 
         # Send GET request to the /discover/movie endpoint
-        r = requests.get(base_url, params=parameters)
+        r = requests.get(discover_url, params=parameters)
         films = r.json()
 
         # If valid response, extract the ids, break otherwise 
@@ -47,4 +40,3 @@ def get_ids_by_year(year):
         time.sleep(0.1)
     
     return ids
-    
