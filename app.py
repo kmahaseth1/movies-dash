@@ -13,12 +13,14 @@ discover_url = "https://api.themoviedb.org/3/discover/movie"
 details_url = "https://api.themoviedb.org/3/movie/"
 
 # Get the movie ids
-ids = get_ids_by_year(discover_url, api_key, 2025)
+ids = []
+start, end = 2020, 2025
+for year in range(start, end + 1):
+    yearly_ids = get_ids_by_year(discover_url, api_key, year)
+    ids.append(yearly_ids)
 
 # Extract movie details using get_movie_details
 films = get_movie_details(details_url, api_key, ids)
-
-print(films[:10])
 
 """
 # Create a Dash object
