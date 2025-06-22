@@ -20,9 +20,11 @@ for year in range(start, end + 1):
     ids.append(yearly_ids)
 
 # Extract movie details using get_movie_details
-films = get_movie_details(details_url, api_key, ids)
+films_dict = get_movie_details(details_url, api_key, ids)
 
-"""
+# Convert the dictionary into a DataFrame
+films = pd.DataFrame(films_dict)
+
 # Create a Dash object
 app = Dash(__name__)
 
@@ -36,4 +38,3 @@ app.layout = html.Div(
 # Run the dashboard
 if __name__ == "__main__":
     app.run(debug=True)
-"""
