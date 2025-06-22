@@ -1,5 +1,6 @@
 import pandas as pd
 from dash import Dash, dcc, html
+import plotly.express as px
 import os
 from dotenv import load_dotenv
 from film_ids import get_ids_by_year
@@ -31,20 +32,27 @@ films = pd.DataFrame(films_dict)
 # Temporary data to setup the dashboard
 # Convert the temp data from a list of a data frame
 films = pd.DataFrame(temp_data)
-print(films.head(10))
 
-"""
 # Create a Dash object
 app = Dash(__name__)
+
+# Create graphs for the dashboard
+fig1 = px.bar(films, x="name", y="revenue", title="Highest Grossing Movies",
+              labels={'name': 'Film', 'revenue': 'Revenue'})
+fig2 = px.scatter(films, x="vote_average", y="revenue", 
+                  title="Movie Quality vs Revenue", 
+                  labels={'vote_average': 'Average voter score', 
+                          'revenue': 'Revenue'})
 
 # Define the dashboard layout
 app.layout = html.Div(
     children=[
-        html.H1(children="2020s in Film")
+        html.H1(children="2020s in Film"),
+        dcc.Graph(figure=fig1),
+        dcc.Graph(figure=fig2),
     ]
 )
 
 # Run the dashboard
 if __name__ == "__main__":
     app.run(debug=True)
-"""
