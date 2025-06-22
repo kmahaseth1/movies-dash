@@ -37,12 +37,19 @@ films = pd.DataFrame(temp_data)
 app = Dash(__name__)
 
 # Create graphs for the dashboard
-fig1 = px.bar(films, x="name", y="revenue", title="Highest Grossing Movies",
+fig1 = px.bar(films.sort_values(by="revenue", ascending=False), 
+              x="name", y="revenue", title="Highest Grossing Movies",
               labels={'name': 'Film', 'revenue': 'Revenue'})
-fig2 = px.scatter(films, x="vote_average", y="revenue", 
+fig1.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
+                   yaxis_title_font_size=16)
+
+fig2 = px.scatter(films, x="vote_average", y="revenue", text="name",
                   title="Movie Quality vs Revenue", 
                   labels={'vote_average': 'Average voter score', 
                           'revenue': 'Revenue'})
+fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
+                   yaxis_title_font_size=16)
+fig2.update_traces(mode="markers+text", textposition="top center")
 
 # Define the dashboard layout
 app.layout = html.Div(
