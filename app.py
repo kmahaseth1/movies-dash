@@ -4,7 +4,9 @@ import os
 from dotenv import load_dotenv
 from film_ids import get_ids_by_year
 from film_details import get_movie_details
+from temp_data import temp_data
 
+"""
 # Data processing
 # API call setup
 load_dotenv()
@@ -24,7 +26,14 @@ films_dict = get_movie_details(details_url, api_key, ids)
 
 # Convert the dictionary into a DataFrame
 films = pd.DataFrame(films_dict)
+"""
 
+# Temporary data to setup the dashboard
+# Convert the temp data from a list of a data frame
+films = pd.DataFrame(temp_data)
+print(films.head(10))
+
+"""
 # Create a Dash object
 app = Dash(__name__)
 
@@ -38,3 +47,4 @@ app.layout = html.Div(
 # Run the dashboard
 if __name__ == "__main__":
     app.run(debug=True)
+"""
