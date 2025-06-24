@@ -66,10 +66,15 @@ fig2.update_traces(mode="markers+text", textposition="top center")
 # Define the dashboard layout
 app.layout = html.Div(
     children=[
-        html.H1(children="2020s in Film"),
-        dcc.Graph(figure=fig1),
-        dcc.Graph(figure=fig2),
-    ]
+        html.Div(
+            children=[
+                html.H1(children="2020s in Film", className="header-title"),
+                dcc.Graph(figure=fig1),
+                dcc.Graph(figure=fig2),
+            ]
+        )
+    ],
+    className="header"
 )
 
 # Run the dashboard
