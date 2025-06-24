@@ -69,8 +69,12 @@ app.layout = html.Div(
         html.Div(
             children=[
                 html.H1(children="2020s in Film", className="header-title"),
-                dcc.Graph(figure=fig1),
-                dcc.Graph(figure=fig2),
+                dcc.Graph(id="top-grossers",
+                          config={"displayModeBar": False}, 
+                          figure=fig1),
+                dcc.Graph(id="rev-vs-quality",
+                          config={"displayModeBar": False}, 
+                          figure=fig2),
             ]
         )
     ],
