@@ -33,8 +33,20 @@ films = pd.DataFrame(films_dict)
 # Convert the temp data from a list of a data frame
 films = pd.DataFrame(temp_data)
 
-# Create a Dash object
-app = Dash(__name__)
+# Import an external CSS file containing necessary font family
+external_stylesheets = [
+    {
+        "href": (
+            "https://fonts.googleapis.com/css2?"
+            "family=Lato:wght@400;700&display=swap"
+        ),
+        "rel": "stylesheet",
+    },
+]
+
+# Create a Dash object and set its title
+app = Dash(__name__, external_stylesheets=external_stylesheets)
+app.title = "Film Analytics Dashboard: Explore film data from the 2020s"
 
 # Create graphs for the dashboard
 fig1 = px.bar(films.sort_values(by="revenue", ascending=False), 
