@@ -44,24 +44,31 @@ external_stylesheets = [
     },
 ]
 
+# Summary stats
+highest_grosser = films.loc[films['revenue'].idxmax(), 'name']
+highest_scorer = films.loc[films['vote_average'].idxmax(), 'name']
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
-app.title = "Film Analytics Dashboard: Explore film data from the 2020s"
+app.title = "Films Dashboard by Kushagra Mahaseth"
 
 # Create graphs for the dashboard
-fig1 = px.bar(films.sort_values(by="revenue", ascending=False), 
+fig2 = px.bar(films.sort_values(by="revenue", ascending=False), 
               x="name", y="revenue", title="Highest Grossing Movies",
               labels={'name': 'Film', 'revenue': 'Revenue'})
-fig1.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
+fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
 
-fig2 = px.scatter(films, x="vote_average", y="revenue", text="name",
+fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
                   title="Movie Quality vs Revenue", 
                   labels={'vote_average': 'Average voter score', 
                           'revenue': 'Revenue'})
-fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
+fig3.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
-fig2.update_traces(mode="markers+text", textposition="top center")
+fig3.update_traces(mode="markers+text", textposition="top center")
+
+fig4 = px.pie(films, values=films['genre'].value_counts(), 
+              names=films['genre'].unique(), title="Breakdown by Genre")
+fig4.update_layout(title_x=0.5, title_font_size=24)
 
 # Define the dashboard layout
 app.layout = html.Div(
@@ -69,12 +76,19 @@ app.layout = html.Div(
         html.Div(
             children=[
                 html.H1(children="2020s in Film", className="header-title"),
+                html.P(children=f"Highest Grossing Film: {highest_grosser}",
+                        className="textBox", id="box_one"),
+                html.P(children=f"Highest Reviewed Film: {highest_scorer}",
+                        className="textBox", id="box_two"),        
                 dcc.Graph(id="top-grossers",
                           config={"displayModeBar": False}, 
-                          figure=fig1),
+                          figure=fig2),
                 dcc.Graph(id="rev-vs-quality",
                           config={"displayModeBar": False}, 
-                          figure=fig2),
+                          figure=fig3),
+                dcc.Graph(id="genre-breakdown",
+                          config={"displayModeBar": False}, 
+                          figure=fig4),
             ]
         )
     ],
