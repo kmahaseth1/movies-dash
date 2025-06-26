@@ -32,6 +32,7 @@ films = pd.DataFrame(films_dict)
 # Temporary data to setup the dashboard
 # Convert the temp data from a list of a data frame
 films = pd.DataFrame(temp_data)
+films['release_year'] = films['release_year'].astype(str)
 
 # Import an external CSS file containing necessary font family
 external_stylesheets = [
@@ -44,17 +45,19 @@ external_stylesheets = [
     },
 ]
 
-# Summary stats
+# Summary datasets and stats
 highest_grosser = films.loc[films['revenue'].idxmax(), 'name']
 highest_scorer = films.loc[films['vote_average'].idxmax(), 'name']
+
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
 
 # Create graphs for the dashboard
-fig2 = px.bar(films.sort_values(by="revenue", ascending=False), 
-              x="name", y="revenue", title="Highest Grossing Movies",
-              labels={'name': 'Film', 'revenue': 'Revenue'})
+fig2 = px.bar(films.sort_values(by="revenue", ascending=True), 
+            x="revenue", y="name", title="Highest Grossing Movies",
+            orientation="h", height=400, 
+            labels={'name': 'Film', 'revenue': 'Revenue'})
 fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
 
@@ -65,10 +68,6 @@ fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
 fig3.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
 fig3.update_traces(mode="markers+text", textposition="top center")
-
-fig4 = px.pie(films, values=films['genre'].value_counts(), 
-              names=films['genre'].unique(), title="Breakdown by Genre")
-fig4.update_layout(title_x=0.5, title_font_size=24)
 
 # Define the dashboard layout
 app.layout = html.Div(
@@ -86,9 +85,6 @@ app.layout = html.Div(
                 dcc.Graph(id="rev-vs-quality",
                           config={"displayModeBar": False}, 
                           figure=fig3),
-                dcc.Graph(id="genre-breakdown",
-                          config={"displayModeBar": False}, 
-                          figure=fig4),
             ]
         )
     ],
