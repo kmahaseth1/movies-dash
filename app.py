@@ -81,16 +81,16 @@ app.layout = html.Div(
         ),
         html.Div(
             children=[
-                html.P(children=f"Highest Grossing Film: {highest_grosser}",
-                    className="kpi", id="box_one"),
+                html.P(children="Highest Grossing Film: {highest_grosser}",
+                    className="kpi box", id="box_one"),
                 html.P(children=f"Highest Reviewed Film: {highest_scorer}",
-                    className="kpi", id="box_two"),
+                    className="kpi box", id="box_two"),
                 html.P(children=f"Most Popular Genre: {most_pop_genre}",
-                    className="kpi", id="box_three"),
+                    className="kpi box", id="box_three"),
                 html.P(children=f"Cumulative Revenue: ${cum_rev:,.0f}",
-                    className="kpi", id="box_three"),
+                    className="kpi box", id="box_three"),
                 html.P(children=f"Total Movies Released: {total_films}",
-                    className="kpi", id="box_three"),
+                    className="kpi box", id="box_three"),
             ], className= "kpis"
         ),       
         dcc.Graph(id="top-grossers",
