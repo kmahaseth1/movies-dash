@@ -83,39 +83,39 @@ app.layout = html.Div(
             children=[
                 html.P(children=[
                         html.P("Highest Grossing Film",
-                            className="box top", id="one"
+                            className="top"
             ),
                         html.P(f"{highest_grosser}",
-                            className="box bottom", id="one")
-            ]),
+                            className="bottom")
+            ], className="box"),
                 html.P(children=[
                         html.P("Highest Rated Film",
-                            className="box top", id="two"
+                            className="top"
             ),
                         html.P(f"{highest_scorer}",
-                            className="box bottom")
-            ]), 
+                            className="bottom")
+            ], className="box"), 
                 html.P(children=[
                         html.P("Most Popular Genre",
-                            className="box top"
+                            className="top"
             ),
                         html.P(f"{most_pop_genre}",
-                            className="box bottom")
-            ]), 
+                            className="bottom")
+            ], className="box"), 
                 html.P(children=[
                         html.P("Cumulative Revenue",
-                            className="box top"
+                            className="top"
             ),
                         html.P(f"${cum_rev:,.0f}",
-                            className="box bottom")
-            ]),
+                            className="bottom")
+            ], className="box"),
                 html.P(children=[
                         html.P("Total Movies Released",
-                            className="box top"
+                            className="top"
             ),
                         html.P(f"{total_films}",
-                            className="box bottom")
-            ]),
+                            className="bottom")
+            ], className="box"),
         ], className= "kpis"
         ),       
         dcc.Graph(id="top-grossers",
