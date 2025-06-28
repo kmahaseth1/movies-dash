@@ -81,7 +81,7 @@ app.layout = html.Div(
         ),
         html.Div(
             children=[
-                html.P(children="Highest Grossing Film: {highest_grosser}",
+                html.P(children=f"Highest Grossing Film: {highest_grosser}",
                     className="kpi box", id="box_one"),
                 html.P(children=f"Highest Reviewed Film: {highest_scorer}",
                     className="kpi box", id="box_two"),
