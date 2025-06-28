@@ -1,0 +1,18 @@
+body {
+    font-family: "Bookman", "URW Bookman L", "serif";
+    margin: 0;
+    background-color: #F7F7F7;
+}
+
+.header {
+    background-color: #4c9f95;
+    height: 256px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 0 auto;
+    text-align: center;
+}
