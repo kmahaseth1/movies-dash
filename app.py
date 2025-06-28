@@ -81,25 +81,49 @@ app.layout = html.Div(
         ),
         html.Div(
             children=[
-                html.P(children=f"Highest Grossing Film: {highest_grosser}",
-                    className="kpi box", id="box_one"),
-                html.P(children=f"Highest Reviewed Film: {highest_scorer}",
-                    className="kpi box", id="box_two"),
-                html.P(children=f"Most Popular Genre: {most_pop_genre}",
-                    className="kpi box", id="box_three"),
-                html.P(children=f"Cumulative Revenue: ${cum_rev:,.0f}",
-                    className="kpi box", id="box_three"),
-                html.P(children=f"Total Movies Released: {total_films}",
-                    className="kpi box", id="box_three"),
-            ], className= "kpis"
+                html.P(children=[
+                        html.P("Highest Grossing Film",
+                            className="box top", id="one"
+            ),
+                        html.P(f"{highest_grosser}",
+                            className="box bottom", id="one")
+            ]),
+                html.P(children=[
+                        html.P("Highest Rated Film",
+                            className="box top", id="two"
+            ),
+                        html.P(f"{highest_scorer}",
+                            className="box bottom")
+            ]), 
+                html.P(children=[
+                        html.P("Most Popular Genre",
+                            className="box top"
+            ),
+                        html.P(f"{most_pop_genre}",
+                            className="box bottom")
+            ]), 
+                html.P(children=[
+                        html.P("Cumulative Revenue",
+                            className="box top"
+            ),
+                        html.P(f"${cum_rev:,.0f}",
+                            className="box bottom")
+            ]),
+                html.P(children=[
+                        html.P("Total Movies Released",
+                            className="box top"
+            ),
+                        html.P(f"{total_films}",
+                            className="box bottom")
+            ]),
+        ], className= "kpis"
         ),       
         dcc.Graph(id="top-grossers",
                 config={"displayModeBar": False}, 
                 figure=fig2),
         dcc.Graph(id="rev-vs-quality",
                 config={"displayModeBar": False}, 
-                figure=fig3),
-           
+                figure=fig3),     
     ]
 )
 
