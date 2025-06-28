@@ -48,6 +48,9 @@ external_stylesheets = [
 # Summary datasets and stats
 highest_grosser = films.loc[films['revenue'].idxmax(), 'name']
 highest_scorer = films.loc[films['vote_average'].idxmax(), 'name']
+most_pop_genre = films['genre'].value_counts().idxmax()
+cum_rev = films['revenue'].sum()
+total_films = len(films['name'])
 
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
@@ -79,7 +82,13 @@ app.layout = html.Div(
         html.P(children=f"Highest Grossing Film: {highest_grosser}",
                 className="textBox", id="box_one"),
         html.P(children=f"Highest Reviewed Film: {highest_scorer}",
-                className="textBox", id="box_two"),        
+                className="textBox", id="box_two"),
+        html.P(children=f"Most Popular Genre: {most_pop_genre}",
+                className="textBox", id="box_three"),
+        html.P(children=f"Cumulative Revenue: ${cum_rev:,.0f}",
+                className="textBox", id="box_three"),
+        html.P(children=f"Total Movies Released: {total_films}",
+                className="textBox", id="box_three"),        
         dcc.Graph(id="top-grossers",
                 config={"displayModeBar": False}, 
                 figure=fig2),
