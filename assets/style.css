@@ -1,12 +1,12 @@
 body {
     font-family: "Bookman", "URW Bookman L", "serif";
-    margin: 0;
-    background-color: #F7F7F7;
+    margin: 10px;
+    background-color: #acece4;
 }
 
 .header {
     background-color: #4c9f95;
-    height: 256px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,4 +15,26 @@ body {
     color: #FFFFFF;
     margin: 0 auto;
     text-align: center;
+}
+
+.kpis {
+    padding: 10px;
+    margin: 10px 0 10px;
+    background-color: #F7F7F7;
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box {
+    border-color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: #000000;
+    height: 100px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
 }
