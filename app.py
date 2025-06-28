@@ -54,9 +54,8 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
 
 # Create graphs for the dashboard
-fig2 = px.bar(films.sort_values(by="revenue", ascending=True), 
-            x="revenue", y="name", title="Highest Grossing Movies",
-            orientation="h", height=400, 
+fig2 = px.bar(films.sort_values(by="revenue", ascending=False), 
+            x="name", y="revenue", title="Highest Grossing Movies",
             labels={'name': 'Film', 'revenue': 'Revenue'})
 fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
@@ -75,20 +74,20 @@ app.layout = html.Div(
         html.Div(
             children=[
                 html.H1(children="2020s in Film", className="header-title"),
-                html.P(children=f"Highest Grossing Film: {highest_grosser}",
-                        className="textBox", id="box_one"),
-                html.P(children=f"Highest Reviewed Film: {highest_scorer}",
-                        className="textBox", id="box_two"),        
-                dcc.Graph(id="top-grossers",
-                          config={"displayModeBar": False}, 
-                          figure=fig2),
-                dcc.Graph(id="rev-vs-quality",
-                          config={"displayModeBar": False}, 
-                          figure=fig3),
-            ]
-        )
-    ],
-    className="header"
+                 ], className="header"
+        ),
+        html.P(children=f"Highest Grossing Film: {highest_grosser}",
+                className="textBox", id="box_one"),
+        html.P(children=f"Highest Reviewed Film: {highest_scorer}",
+                className="textBox", id="box_two"),        
+        dcc.Graph(id="top-grossers",
+                config={"displayModeBar": False}, 
+                figure=fig2),
+        dcc.Graph(id="rev-vs-quality",
+                config={"displayModeBar": False}, 
+                figure=fig3),
+           
+    ]
 )
 
 # Run the dashboard
