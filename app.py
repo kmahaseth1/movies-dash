@@ -144,28 +144,31 @@ app.layout = html.Div(
             ], className="box"),
         ], className= "kpis"
         ),       
-        dcc.Graph(id="top-grossers",
+        dcc.Graph(id="top-grossers", className = "charts",
             config={"displayModeBar": False}, 
             figure=fig2),
-        dcc.Graph(id="rev-vs-quality",
+        dcc.Graph(id="rev-vs-quality", className = "charts", 
             config={"displayModeBar": False}, 
             figure=fig3),
-        dcc.Graph(id="genre-releases",
+        dcc.Graph(id="genre-releases", className = "charts",
             config={"displayModeBar": False}, 
             figure=fig4),
-        dash_table.DataTable(
-            id="profits-table",
-            data=films.to_dict('records'),
-            columns=[
-                {'name': 'Film Name', 'id': 'name'},
-                {'name': 'Release Year', 'id': 'release_year'},
-                {'name': 'Genre', 'id': 'genre'},
-                {'name': 'Profit (pct of  Budget)', 'id': 'profits_pct',
-                    'type': 'numeric', 'format': {'specifier': '.0%'}}
-            ]
-        )      
+        html.Div([
+            dash_table.DataTable(
+                id="profits-table",
+                data=films.to_dict('records'),
+                columns=[
+                    {'name': 'Film Name', 'id': 'name'},
+                    {'name': 'Release Year', 'id': 'release_year'},
+                    {'name': 'Genre', 'id': 'genre'},
+                    {'name': 'Profit (pct of  Budget)', 'id': 'profits_pct',
+                        'type': 'numeric', 'format': {'specifier': '.0%'}}
+                    ]
+                )      
+            ], className="charts"
+        )
     ]
-)
+)  
 
 # Run the dashboard
 if __name__ == "__main__":
