@@ -41,7 +41,7 @@ films = pd.DataFrame(temp_data)
 films['release_year'] = films['release_year'].astype(str)
 films['mkt_est'] = np.where(films['budget'] >= 100000000, 100000000, 35000000)
 films['profits'] = films["revenue"] - (films["budget"] + films["mkt_est"])
-films['profits_pct'] = films["revenue"] / films["budget"]
+films['profits_pct'] = films["profits"] / films["budget"]
 films['profits_pct'] = films['profits_pct'].replace([np.inf, -np.inf], np.nan)
 
 # Import an external CSS file containing necessary font family
