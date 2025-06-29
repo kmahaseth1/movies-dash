@@ -40,3 +40,10 @@ body {
     align-items: center;
     padding: 5px;
 }
+
+.charts {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+}
