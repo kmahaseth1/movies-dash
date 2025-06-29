@@ -161,7 +161,7 @@ app.layout = html.Div(
                 {'name': 'Release Year', 'id': 'release_year'},
                 {'name': 'Genre', 'id': 'genre'},
                 {'name': 'Profit (pct of  Budget)', 'id': 'profits_pct',
-                    'type': 'numeric', 'format': {'specifier': '.1%'}}
+                    'type': 'numeric', 'format': {'specifier': '.0%'}}
             ]
         )      
     ]
