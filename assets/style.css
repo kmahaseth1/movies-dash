@@ -47,3 +47,8 @@ body {
     width: 100%;
     gap: 20px;
 }
+
+.chart {
+    min-height: 475px;
+    min-width: 690px;
+}
