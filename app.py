@@ -161,7 +161,7 @@ app.layout = html.Div(
                     id="profits-table",
                     data=top_profits.to_dict('records'),
                     columns=[
-                        {'name': 'Film Name', 'id': 'name'},
+                        {'name': 'Movie Name', 'id': 'name'},
                         {'name': 'Release Year', 'id': 'release_year'},
                         {'name': 'Genre', 'id': 'genre'},
                         {'name': 'Profit (pct of  Budget)', 'id': 'profits_pct',
