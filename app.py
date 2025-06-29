@@ -1,5 +1,6 @@
 import pandas as pd
-from dash import Dash, dcc, html
+import numpy as np
+from dash import Dash, dcc, html, dash_table
 import plotly.express as px
 import os
 from dotenv import load_dotenv
@@ -27,12 +28,21 @@ films_dict = get_movie_details(details_url, api_key, ids)
 
 # Convert the dictionary into a DataFrame
 films = pd.DataFrame(films_dict)
+films['release_year'] = films['release_year'].astype(str)
+films['mkt_est'] = np.where(films['budget'] >= 100000000, 100000000, 35000000)
+films['profits'] = films["revenue"] - (films["budget"] + films["mkt_est"])
+films['profits_pct'] = films["revenue"] / films["budget"]
+films['profits_pct'] = films['profits_pct'].replace([np.inf, -np.inf], np.nan)
 """
 
 # Temporary data to setup the dashboard
 # Convert the temp data from a list of a data frame
 films = pd.DataFrame(temp_data)
 films['release_year'] = films['release_year'].astype(str)
+films['mkt_est'] = np.where(films['budget'] >= 100000000, 100000000, 35000000)
+films['profits'] = films["revenue"] - (films["budget"] + films["mkt_est"])
+films['profits_pct'] = films["revenue"] / films["budget"]
+films['profits_pct'] = films['profits_pct'].replace([np.inf, -np.inf], np.nan)
 
 # Import an external CSS file containing necessary font family
 external_stylesheets = [
@@ -71,9 +81,9 @@ fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
 
 fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
-                  color="release_year", title="Movie Quality vs Revenue", 
-                  labels={'vote_average': 'Average voter score', 
-                          'revenue': 'Revenue'})
+                title="Movie Quality vs Revenue", 
+                labels={'vote_average': 'Average voter score', 
+                        'revenue': 'Revenue'})
 fig3.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
 fig3.update_traces(mode="markers+text", textposition="top center")
@@ -135,14 +145,25 @@ app.layout = html.Div(
         ], className= "kpis"
         ),       
         dcc.Graph(id="top-grossers",
-                config={"displayModeBar": False}, 
-                figure=fig2),
+            config={"displayModeBar": False}, 
+            figure=fig2),
         dcc.Graph(id="rev-vs-quality",
-                config={"displayModeBar": False}, 
-                figure=fig3),
+            config={"displayModeBar": False}, 
+            figure=fig3),
         dcc.Graph(id="genre-releases",
-                config={"displayModeBar": False}, 
-                figure=fig4),      
+            config={"displayModeBar": False}, 
+            figure=fig4),
+        dash_table.DataTable(
+            id="profits-table",
+            data=films.to_dict('records'),
+            columns=[
+                {'name': 'Film Name', 'id': 'name'},
+                {'name': 'Release Year', 'id': 'release_year'},
+                {'name': 'Genre', 'id': 'genre'},
+                {'name': 'Profit (pct of  Budget)', 'id': 'profits_pct',
+                    'type': 'numeric', 'format': {'specifier': '.1%'}}
+            ]
+        )      
     ]
 )
 
