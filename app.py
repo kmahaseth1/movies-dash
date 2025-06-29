@@ -69,12 +69,14 @@ genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
     lambda x: x / x.sum()
 )
 
+top_profits = films.sort_values('profits_pct', ascending=False).head(10)
+
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
 
 # Create graphs for the dashboard
-fig2 = px.bar(films.sort_values(by="revenue", ascending=False), 
+fig2 = px.bar(films.sort_values(by="revenue", ascending=False).head(10), 
             x="name", y="revenue", title="Highest Grossing Movies",
             labels={'name': 'Film', 'revenue': 'Revenue'})
 fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
@@ -157,7 +159,7 @@ app.layout = html.Div(
             html.Div([ 
                 dash_table.DataTable(
                     id="profits-table",
-                    data=films.to_dict('records'),
+                    data=top_profits.to_dict('records'),
                     columns=[
                         {'name': 'Film Name', 'id': 'name'},
                         {'name': 'Release Year', 'id': 'release_year'},
