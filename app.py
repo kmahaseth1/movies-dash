@@ -52,6 +52,13 @@ most_pop_genre = films['genre'].value_counts().idxmax()
 cum_rev = films['revenue'].sum()
 total_films = len(films['name'])
 
+genre_data = films.groupby(['release_year', 'genre']).size().reset_index(
+    name='count'
+)
+genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
+    lambda x: x / x.sum()
+)
+
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
@@ -64,12 +71,21 @@ fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
 
 fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
-                  title="Movie Quality vs Revenue", 
+                  color="release_year", title="Movie Quality vs Revenue", 
                   labels={'vote_average': 'Average voter score', 
                           'revenue': 'Revenue'})
 fig3.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
                    yaxis_title_font_size=16)
 fig3.update_traces(mode="markers+text", textposition="top center")
+
+fig4 = px.bar(
+    genre_data, 
+    x='prop', y='release_year', color='genre', orientation='h', height = 300,
+    title="Distribution of Genre of Released Films",
+    labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
+)
+fig4.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
+                   yaxis_title_font_size=16)
 
 # Define the dashboard layout
 app.layout = html.Div(
@@ -123,7 +139,10 @@ app.layout = html.Div(
                 figure=fig2),
         dcc.Graph(id="rev-vs-quality",
                 config={"displayModeBar": False}, 
-                figure=fig3),     
+                figure=fig3),
+        dcc.Graph(id="genre-releases",
+                config={"displayModeBar": False}, 
+                figure=fig4),      
     ]
 )
 
