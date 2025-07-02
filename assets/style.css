@@ -52,3 +52,25 @@ body {
     min-height: 475px;
     min-width: 690px;
 }
+
+.menu-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #079A82;
+}
+
+.menu {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px auto 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
+}
+
+.dropdown {
+    height: 38px;
+    width: 200px;
+}
