@@ -83,16 +83,26 @@ app.title = "Films Dashboard by Kushagra Mahaseth"
 fig2 = px.bar(films.sort_values(by="revenue", ascending=False).head(10), 
             x="name", y="revenue", title="Highest Grossing Movies",
             labels={'name': 'Film', 'revenue': 'Revenue'})
-fig2.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
-                   yaxis_title_font_size=16)
+fig2.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'))
+fig2.update_traces(marker_color='#4c9f95')
 
 fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
                 title="Movie Quality vs Revenue", 
                 labels={'vote_average': 'Average voter score', 
                         'revenue': 'Revenue'})
-fig3.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
-                   yaxis_title_font_size=16)
-fig3.update_traces(mode="markers+text", textposition="top center")
+fig3.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'))
+fig3.update_traces(mode="markers+text", textposition="top center", 
+                   marker_color='#4c9f95')
 
 fig4 = px.bar(
     genre_data, 
@@ -100,9 +110,12 @@ fig4 = px.bar(
     title="Distribution of Genre of Released Films",
     labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
 )
-fig4.update_layout(title_x=0.5, title_font_size=24, xaxis_title_font_size=16,
-                   yaxis_title_font_size=16)
-
+fig4.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'))
 # Define the dashboard layout
 app.layout = html.Div(
     children=[
