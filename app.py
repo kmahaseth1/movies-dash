@@ -224,7 +224,7 @@ app.layout = html.Div(
                             className="bottom")
             ], className="box"), 
                 html.Div(children=[
-                        html.P("Cumulative Revenue (in millions)",
+                        html.P("Total Revenue (in millions)",
                             className="top"
             ),
                         html.P(f"${cum_rev:,.0f} MM",
