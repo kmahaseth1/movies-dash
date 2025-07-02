@@ -38,9 +38,31 @@ body {
     width: 250px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.top {
+    height: 100%;
+    width: 100%;
+    flex: 2;
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px;
+    background-color: #30bba9;
+    color: #ffffff;
+    margin: 0;
+}
+
+.bottom {
+    height: 100%;
+    width: 100%;
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
 }
 
 .charts {

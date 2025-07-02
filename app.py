@@ -202,35 +202,35 @@ app.layout = html.Div(
         ),
         html.Div(
             children=[
-                html.P(children=[
+                html.Div(children=[
                         html.P("Highest Grossing Film",
                             className="top"
             ),
                         html.P(f"{highest_grosser}",
                             className="bottom")
             ], className="box"),
-                html.P(children=[
+                html.Div(children=[
                         html.P("Highest Rated Film",
                             className="top"
             ),
                         html.P(f"{highest_scorer}",
                             className="bottom")
             ], className="box"), 
-                html.P(children=[
+                html.Div(children=[
                         html.P("Most Popular Genre",
                             className="top"
             ),
                         html.P(f"{most_pop_genre}",
                             className="bottom")
             ], className="box"), 
-                html.P(children=[
+                html.Div(children=[
                         html.P("Cumulative Revenue",
                             className="top"
             ),
                         html.P(f"${cum_rev:,.0f}",
                             className="bottom")
             ], className="box"),
-                html.P(children=[
+                html.Div(children=[
                         html.P("Total Movies Released",
                             className="top"
             ),
