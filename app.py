@@ -59,7 +59,7 @@ external_stylesheets = [
 highest_grosser = films.loc[films['revenue'].idxmax(), 'name']
 highest_scorer = films.loc[films['vote_average'].idxmax(), 'name']
 most_pop_genre = films['genre'].value_counts().idxmax()
-cum_rev = films['revenue'].sum()
+cum_rev = films['revenue'].sum() / 1000000
 total_films = len(films['name'])
 
 genre_data = films.groupby(['release_year', 'genre']).size().reset_index(
@@ -224,10 +224,10 @@ app.layout = html.Div(
                             className="bottom")
             ], className="box"), 
                 html.Div(children=[
-                        html.P("Cumulative Revenue",
+                        html.P("Cumulative Revenue (in millions)",
                             className="top"
             ),
-                        html.P(f"${cum_rev:,.0f}",
+                        html.P(f"${cum_rev:,.0f} MM",
                             className="bottom")
             ], className="box"),
                 html.Div(children=[
