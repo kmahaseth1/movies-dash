@@ -217,7 +217,7 @@ app.layout = html.Div(
                 config={"displayModeBar": False}, 
                 figure=fig4),
             html.Div([
-                html.P("Top Movies by Profit-to-Expense Ratio", 
+                html.P("Top Movies by Returns on Expenses", 
                         className="table-title"),
                 dash_table.DataTable(
                     id="profits-table",
