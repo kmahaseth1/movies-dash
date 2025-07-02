@@ -109,6 +109,62 @@ app.layout = html.Div(
         ),
         html.Div(
             children=[
+                html.Div(
+                    children=[
+                        html.Div(children="Genre", className="menu-title"),
+                        dcc.Dropdown(
+                            id="genre-filter",
+                            options=[
+                                {"label": genre.title(), "value": genre}
+                                for genre in films['genre']
+                            ],
+                            clearable=True,
+                            searchable=True,
+                            className="dropdown",
+                        ),
+                    ]
+                ),
+                html.Div(
+                    children=[
+                        html.Div(children="Type", className="menu-title"),
+                        dcc.Dropdown(
+                            id="type-filter",
+                            options=[
+                                {
+                                    "label": type.title(),
+                                    "value": type,
+                                }
+                                for type in films['type']
+                            ],
+                            clearable=True,
+                            searchable=False,
+                            className="dropdown",
+                        ),
+                    ],
+                ),
+                html.Div(
+                    children=[
+                        html.Div(children="Year", className="menu-title"),
+                        dcc.Dropdown(
+                            id="year-filter",
+                            options=[
+                                {
+                                    "label": year,
+                                    "value": year,
+                                }
+                                for year in films['release_year']
+                            ],
+                            clearable=True,
+                            searchable=True,
+                            className="dropdown",
+                        ),
+                    ],
+                ),
+            ],
+            className="menu",
+        ),
+        html.Div(
+            children=[
                 html.P(children=[
                         html.P("Highest Grossing Film",
                             className="top"
