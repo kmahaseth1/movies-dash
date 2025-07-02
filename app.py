@@ -216,7 +216,9 @@ app.layout = html.Div(
             dcc.Graph(id="genre-releases", className = "chart",
                 config={"displayModeBar": False}, 
                 figure=fig4),
-            html.Div([ 
+            html.Div([
+                html.P("Top Movies by Profit-to-Expense Ratio", 
+                        className="table-title"),
                 dash_table.DataTable(
                     id="profits-table",
                     data=top_profits.to_dict('records'),
