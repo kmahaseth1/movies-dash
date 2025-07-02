@@ -1,11 +1,12 @@
 body {
-    font-family: "Bookman", "URW Bookman L", "serif";
+    font-family: 'Open Sans', sans-serif;
     margin: 10px;
     background-color: #e6fff9;
     color: #4c9f95;
 }
 
 .header {
+    font-family: "Bookman", "URW Bookman L", "serif";
     background-color: #4c9f95;
     height: 200px;
     display: flex;
