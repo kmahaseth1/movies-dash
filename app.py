@@ -71,6 +71,10 @@ genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
 
 top_profits = films.sort_values('profits_pct', ascending=False).head(10)
 
+genres = films['genre'].sort_values().unique()
+types = films['type'].sort_values().unique()
+years = films['release_year'].sort_values().unique()
+
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
@@ -116,7 +120,7 @@ app.layout = html.Div(
                             id="genre-filter",
                             options=[
                                 {"label": genre.title(), "value": genre}
-                                for genre in films['genre']
+                                for genre in genres
                             ],
                             clearable=True,
                             searchable=True,
@@ -134,7 +138,7 @@ app.layout = html.Div(
                                     "label": type.title(),
                                     "value": type,
                                 }
-                                for type in films['type']
+                                for type in types
                             ],
                             clearable=True,
                             searchable=False,
@@ -152,7 +156,7 @@ app.layout = html.Div(
                                     "label": year,
                                     "value": year,
                                 }
-                                for year in films['release_year']
+                                for year in years
                             ],
                             clearable=True,
                             searchable=True,
