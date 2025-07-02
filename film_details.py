@@ -21,7 +21,7 @@ def get_movie_details(details_url, api_key, ids):
         film_dict = {
             'name': film_raw['title'],
             'budget': film_raw['budget'],
-            'type': 'live-action',
+            'type': 'live action',
             'genre': None,
             # 'genre': film_raw['genres'][0]['name'] if film_raw['genres'] else None,
             'production_countries': film_raw['production_countries'][0]['name'] if film_raw['production_countries'] else None,
