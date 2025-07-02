@@ -71,9 +71,10 @@ genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
 
 top_profits = films.sort_values('profits_pct', ascending=False).head(10)
 
+years = films['release_year'].sort_values().unique()
 genres = films['genre'].sort_values().unique()
 types = films['type'].sort_values().unique()
-years = films['release_year'].sort_values().unique()
+countries = films['production_countries'].sort_values().unique()
 
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
@@ -128,18 +129,36 @@ app.layout = html.Div(
             children=[
                 html.Div(
                     children=[
-                        html.Div(children="Genre", className="menu-title"),
+                        html.Div(children="Year", className="menu-title"),
                         dcc.Dropdown(
-                            id="genre-filter",
+                            id="year-filter",
                             options=[
-                                {"label": genre.title(), "value": genre}
-                                for genre in genres
+                                {"label": year, "value": year}
+                                for year in years
                             ],
                             clearable=True,
                             searchable=True,
                             className="dropdown",
                         ),
                     ]
+                ),
+                html.Div(
+                    children=[
+                        html.Div(children="Genre", className="menu-title"),
+                        dcc.Dropdown(
+                            id="genre-filter",
+                            options=[
+                                {
+                                    "label": genre.title(),
+                                    "value": genre,
+                                }
+                                for genre in genres
+                            ],
+                            clearable=True,
+                            searchable=False,
+                            className="dropdown",
+                        ),
+                    ],
                 ),
                 html.Div(
                     children=[
@@ -154,22 +173,23 @@ app.layout = html.Div(
                                 for type in types
                             ],
                             clearable=True,
-                            searchable=False,
+                            searchable=True,
                             className="dropdown",
                         ),
                     ],
                 ),
-                html.Div(
+            html.Div(
                     children=[
-                        html.Div(children="Year", className="menu-title"),
+                        html.Div(children="Production Country", 
+                                 className="menu-title"),
                         dcc.Dropdown(
-                            id="year-filter",
+                            id="country-filter",
                             options=[
                                 {
-                                    "label": year,
-                                    "value": year,
+                                    "label": country.title(),
+                                    "value": country,
                                 }
-                                for year in years
+                                for country in countries
                             ],
                             clearable=True,
                             searchable=True,
