@@ -92,6 +92,8 @@ fig2.update_layout(title_x=0.5, title_font_size=24,
                    yaxis_title_font=dict(color='#4c9f95'),
                    plot_bgcolor='rgba(0,0,0,0)')
 fig2.update_traces(marker_color='#4c9f95')
+fig2.update_xaxes(tickfont=dict(color='#4c9f95'))
+fig2.update_yaxes(tickfont=dict(color='#4c9f95'))
 
 fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
                 title="Movie Quality vs Revenue", 
@@ -105,7 +107,10 @@ fig3.update_layout(title_x=0.5, title_font_size=24,
                    yaxis_title_font=dict(color='#4c9f95'),
                    plot_bgcolor='rgba(0,0,0,0)')
 fig3.update_traces(mode="markers+text", textposition="top center", 
-                   marker_color='#4c9f95')
+                   marker_color='#4c9f95', textfont=dict(color='#4c9f95', 
+                                                         size=10))
+fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
+fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
 
 fig4 = px.bar(
     genre_data, 
@@ -119,7 +124,12 @@ fig4.update_layout(title_x=0.5, title_font_size=24,
                    xaxis_title_font=dict(color='#4c9f95'),
                    yaxis_title_font_size=16,
                    yaxis_title_font=dict(color='#4c9f95'),
-                   plot_bgcolor='rgba(0,0,0,0)')
+                   plot_bgcolor='rgba(0,0,0,0)',
+                   legend_title_font=dict(color='#4c9f95'),
+                   legend=dict(font=dict(color='#4c9f95')))
+fig4.update_xaxes(tickfont=dict(color='#4c9f95'))
+fig4.update_yaxes(tickfont=dict(color='#4c9f95'))
+
 # Define the dashboard layout
 app.layout = html.Div(
     children=[
