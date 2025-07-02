@@ -45,12 +45,12 @@ body {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    gap: 20px;
+    gap: 10px;
 }
 
 .chart {
-    min-height: 475px;
-    min-width: 690px;
+    width: calc(50% - 5px);
+    box-sizing: border-box;
 }
 
 .menu-title {
