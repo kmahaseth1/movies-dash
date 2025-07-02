@@ -76,6 +76,9 @@ genres = films['genre'].sort_values().unique()
 types = films['type'].sort_values().unique()
 countries = films['production_countries'].sort_values().unique()
 
+revenue_by_type = films.groupby(['release_year','type'])['revenue'].sum()
+revenue_by_type = revenue_by_type.reset_index()
+
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
@@ -112,12 +115,9 @@ fig3.update_traces(mode="markers+text", textposition="top center",
 fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
 fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
 
-fig4 = px.bar(
-    genre_data, 
-    x='prop', y='release_year', color='genre', orientation='h', height = 300,
-    title="Distribution of Genre of Released Films",
-    labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
-)
+fig4 = px.line(revenue_by_type, x='release_year', y='revenue', color='type',
+               markers=True, title='Revenue by Movie Type over Time',
+               labels={'release_year': 'Year', 'revenue': 'Revenue'})
 fig4.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color='#4c9f95'),
                    xaxis_title_font_size=16,
@@ -129,6 +129,24 @@ fig4.update_layout(title_x=0.5, title_font_size=24,
                    legend=dict(font=dict(color='#4c9f95')))
 fig4.update_xaxes(tickfont=dict(color='#4c9f95'))
 fig4.update_yaxes(tickfont=dict(color='#4c9f95'))
+
+fig5 = px.bar(
+    genre_data, 
+    x='prop', y='release_year', color='genre', orientation='h', height = 300,
+    title="Distribution of Genre of Released Films",
+    labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
+)
+fig5.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)',
+                   legend_title_font=dict(color='#4c9f95'),
+                   legend=dict(font=dict(color='#4c9f95')))
+fig5.update_xaxes(tickfont=dict(color='#4c9f95'))
+fig5.update_yaxes(tickfont=dict(color='#4c9f95'))
 
 # Define the dashboard layout
 app.layout = html.Div(
@@ -259,9 +277,12 @@ app.layout = html.Div(
             dcc.Graph(id="rev-vs-quality", className = "chart", 
                 config={"displayModeBar": False}, 
                 figure=fig3),
-            dcc.Graph(id="genre-releases", className = "chart",
+            dcc.Graph(id="rev-by-type", className = "chart", 
                 config={"displayModeBar": False}, 
                 figure=fig4),
+            dcc.Graph(id="genre-releases", className = "chart",
+                config={"displayModeBar": False}, 
+                figure=fig5),
             html.Div([
                 html.P("Top Movies by Returns on Expenses", 
                         className="table-title"),
