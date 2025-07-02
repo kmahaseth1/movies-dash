@@ -203,14 +203,14 @@ app.layout = html.Div(
         html.Div(
             children=[
                 html.Div(children=[
-                        html.P("Highest Grossing Film",
+                        html.P("Highest Grossing Movie",
                             className="top"
             ),
                         html.P(f"{highest_grosser}",
                             className="bottom")
             ], className="box"),
                 html.Div(children=[
-                        html.P("Highest Rated Film",
+                        html.P("Highest Rated Movie",
                             className="top"
             ),
                         html.P(f"{highest_scorer}",
