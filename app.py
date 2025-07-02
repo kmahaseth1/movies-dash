@@ -89,7 +89,8 @@ fig2.update_layout(title_x=0.5, title_font_size=24,
                    xaxis_title_font_size=16,
                    xaxis_title_font=dict(color='#4c9f95'),
                    yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'))
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)')
 fig2.update_traces(marker_color='#4c9f95')
 
 fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
@@ -101,7 +102,8 @@ fig3.update_layout(title_x=0.5, title_font_size=24,
                    xaxis_title_font_size=16,
                    xaxis_title_font=dict(color='#4c9f95'),
                    yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'))
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)')
 fig3.update_traces(mode="markers+text", textposition="top center", 
                    marker_color='#4c9f95')
 
@@ -116,7 +118,8 @@ fig4.update_layout(title_x=0.5, title_font_size=24,
                    xaxis_title_font_size=16,
                    xaxis_title_font=dict(color='#4c9f95'),
                    yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'))
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)')
 # Define the dashboard layout
 app.layout = html.Div(
     children=[
