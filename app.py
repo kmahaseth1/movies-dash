@@ -191,24 +191,6 @@ app.layout = html.Div(
                         ),
                     ],
                 ),
-                html.Div(
-                    children=[
-                        html.Div(children="Type", className="menu-title"),
-                        dcc.Dropdown(
-                            id="type-filter",
-                            options=[
-                                {
-                                    "label": type.title(),
-                                    "value": type,
-                                }
-                                for type in types
-                            ],
-                            clearable=True,
-                            searchable=True,
-                            className="dropdown",
-                        ),
-                    ],
-                ),
             html.Div(
                     children=[
                         html.Div(children="Production Country", 
