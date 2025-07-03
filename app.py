@@ -282,21 +282,7 @@ app.layout = html.Div(
                 figure=fig4),
             dcc.Graph(id="genre-releases", className = "chart",
                 config={"displayModeBar": False}, 
-                figure=fig5),
-            html.Div([
-                html.P("Top Movies by Returns on Expenses", 
-                        className="table-title"),
-                dash_table.DataTable(
-                    id="profits-table",
-                    data=top_profits.to_dict('records'),
-                    columns=[
-                        {'name': 'Movie Name', 'id': 'name'},
-                        {'name': 'Release Year', 'id': 'release_year'},
-                        {'name': 'Genre', 'id': 'genre'},
-                        {'name': 'Profit (pct of  Budget)', 'id': 'profits_pct',
-                            'type': 'numeric', 'format': {'specifier': '.0%'}}
-                        ])
-                ], className="chart"),      
+                figure=fig5),    
             ], 
         className="charts")
     ]
