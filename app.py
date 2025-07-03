@@ -240,7 +240,7 @@ app.layout = html.Div(
                             className="bottom")
             ], className="box"), 
                 html.Div(children=[
-                        html.P("Most Popular Genre",
+                        html.P("Leading Genre by Release Count",
                             className="top"
             ),
                         html.P(f"{most_pop_genre}",
