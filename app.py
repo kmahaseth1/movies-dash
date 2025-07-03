@@ -29,12 +29,14 @@ films_dict = get_movie_details(details_url, api_key, ids)
 # Convert the dictionary into a DataFrame
 films = pd.DataFrame(films_dict)
 films['release_year'] = films['release_year'].astype(str)
+films = films[films['budget'] != 0]
 """
 
 # Temporary data to setup the dashboard
-# Convert the temp data from a list of a data frame
+# Convert the temp data from a list of a data frame and clean the DF
 films = pd.DataFrame(temp_data)
 films['release_year'] = films['release_year'].astype(str)
+films = films[films['budget'] != 0]
 
 # Import an external CSS file containing necessary font family
 external_stylesheets = [
