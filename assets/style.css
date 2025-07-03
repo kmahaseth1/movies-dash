@@ -74,9 +74,24 @@ body {
 }
 
 .chart {
-    width: calc(50% - 5px);
     box-sizing: border-box;
     background-color: white;
+}
+
+#top-grossers {
+    width: calc(60% - 5px);
+}
+
+#genre-releases {
+    width: calc(40% - 5px);
+}
+
+#rev-by-type {
+    width: calc(45% - 5px);
+}
+
+#rev-vs-quality {
+    width: calc(55% - 5px);
 }
 
 .menu-title {
