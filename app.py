@@ -29,20 +29,12 @@ films_dict = get_movie_details(details_url, api_key, ids)
 # Convert the dictionary into a DataFrame
 films = pd.DataFrame(films_dict)
 films['release_year'] = films['release_year'].astype(str)
-films['mkt_est'] = np.where(films['budget'] >= 100000000, 100000000, 35000000)
-films['profits'] = films["revenue"] - (films["budget"] + films["mkt_est"])
-films['profits_pct'] = films["revenue"] / films["budget"]
-films['profits_pct'] = films['profits_pct'].replace([np.inf, -np.inf], np.nan)
 """
 
 # Temporary data to setup the dashboard
 # Convert the temp data from a list of a data frame
 films = pd.DataFrame(temp_data)
 films['release_year'] = films['release_year'].astype(str)
-films['mkt_est'] = np.where(films['budget'] >= 100000000, 100000000, 35000000)
-films['profits'] = films["revenue"] - (films["budget"] + films["mkt_est"])
-films['profits_pct'] = films["profits"] / films["budget"]
-films['profits_pct'] = films['profits_pct'].replace([np.inf, -np.inf], np.nan)
 
 # Import an external CSS file containing necessary font family
 external_stylesheets = [
@@ -68,8 +60,6 @@ genre_data = films.groupby(['release_year', 'genre']).size().reset_index(
 genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
     lambda x: x / x.sum()
 )
-
-top_profits = films.sort_values('profits_pct', ascending=False).head(10)
 
 years = films['release_year'].sort_values().unique()
 genres = films['genre'].sort_values().unique()
@@ -98,27 +88,13 @@ fig2.update_traces(marker_color='#4c9f95')
 fig2.update_xaxes(tickfont=dict(color='#4c9f95'))
 fig2.update_yaxes(tickfont=dict(color='#4c9f95'))
 
-fig3 = px.scatter(films, x="vote_average", y="revenue", text="name",
-                title="Movie Quality vs Revenue", 
-                labels={'vote_average': 'Average voter score', 
-                        'revenue': 'Revenue'})
+fig3 = px.bar(
+    genre_data, 
+    x='prop', y='release_year', color='genre', orientation='h', height = 300,
+    title="Distribution of Genre of Released Films",
+    labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
+)
 fig3.update_layout(title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
-                   xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
-                   yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
-                   plot_bgcolor='rgba(0,0,0,0)')
-fig3.update_traces(mode="markers+text", textposition="top center", 
-                   marker_color='#4c9f95', textfont=dict(color='#4c9f95', 
-                                                         size=10))
-fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
-fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
-
-fig4 = px.line(revenue_by_type, x='release_year', y='revenue', color='type',
-               markers=True, title='Revenue by Movie Type over Time',
-               labels={'release_year': 'Year', 'revenue': 'Revenue'})
-fig4.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color='#4c9f95'),
                    xaxis_title_font_size=16,
                    xaxis_title_font=dict(color='#4c9f95'),
@@ -127,15 +103,29 @@ fig4.update_layout(title_x=0.5, title_font_size=24,
                    plot_bgcolor='rgba(0,0,0,0)',
                    legend_title_font=dict(color='#4c9f95'),
                    legend=dict(font=dict(color='#4c9f95')))
+fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
+fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
+
+fig4 = px.scatter(films, x="vote_average", y="revenue", text="name",
+                title="Movie Quality vs Revenue", 
+                labels={'vote_average': 'Average voter score', 
+                        'revenue': 'Revenue'})
+fig4.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)')
+fig4.update_traces(mode="markers+text", textposition="top center", 
+                   marker_color='#4c9f95', textfont=dict(color='#4c9f95', 
+                                                         size=10))
 fig4.update_xaxes(tickfont=dict(color='#4c9f95'))
 fig4.update_yaxes(tickfont=dict(color='#4c9f95'))
 
-fig5 = px.bar(
-    genre_data, 
-    x='prop', y='release_year', color='genre', orientation='h', height = 300,
-    title="Distribution of Genre of Released Films",
-    labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
-)
+fig5 = px.line(revenue_by_type, x='release_year', y='revenue', color='type',
+               markers=True, title='Revenue by Movie Type over Time',
+               labels={'release_year': 'Year', 'revenue': 'Revenue'})
 fig5.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color='#4c9f95'),
                    xaxis_title_font_size=16,
@@ -191,7 +181,25 @@ app.layout = html.Div(
                         ),
                     ],
                 ),
-            html.Div(
+                html.Div(
+                    children=[
+                        html.Div(children="Type", className="menu-title"),
+                        dcc.Dropdown(
+                            id="type-filter",
+                            options=[
+                                {
+                                    "label": type.title(),
+                                    "value": type,
+                                }
+                                for type in types
+                            ],
+                            clearable=True,
+                            searchable=False,
+                            className="dropdown",
+                        ),
+                    ],
+                ),
+                html.Div(
                     children=[
                         html.Div(children="Production Country", 
                                  className="menu-title"),
@@ -256,13 +264,13 @@ app.layout = html.Div(
             dcc.Graph(id="top-grossers", className = "chart",
                 config={"displayModeBar": False}, 
                 figure=fig2),
-            dcc.Graph(id="rev-vs-quality", className = "chart", 
+            dcc.Graph(id="genre-releases", className = "chart", 
                 config={"displayModeBar": False}, 
                 figure=fig3),
-            dcc.Graph(id="rev-by-type", className = "chart", 
+            dcc.Graph(id="rev-vs-quality", className = "chart", 
                 config={"displayModeBar": False}, 
                 figure=fig4),
-            dcc.Graph(id="genre-releases", className = "chart",
+            dcc.Graph(id="rev-by-type", className = "chart",
                 config={"displayModeBar": False}, 
                 figure=fig5),    
             ], 
