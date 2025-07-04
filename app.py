@@ -68,9 +68,6 @@ genres = films['genre'].sort_values().unique()
 types = films['type'].sort_values().unique()
 countries = films['production_countries'].sort_values().unique()
 
-revenue_by_type = films.groupby(['release_year','type'])['revenue'].sum()
-revenue_by_type = revenue_by_type.reset_index()
-
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
@@ -108,9 +105,11 @@ fig3.update_layout(title_x=0.5, title_font_size=24,
 fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
 fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
 
-fig4 = px.line(revenue_by_type, x='release_year', y='revenue', color='type',
-               markers=True, title='Revenue by Movie Type over Time',
-               labels={'release_year': 'Year', 'revenue': 'Revenue'})
+fig4 = px.box(films, x='release_year', y='budget',
+               title='Budget Distribution',
+               category_orders={'release_year': ['2024', '2025']},
+               labels={'release_year': 'Year', 
+                       'budget': 'Budget Distribution'})
 fig4.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color='#4c9f95'),
                    xaxis_title_font_size=16,
@@ -271,7 +270,7 @@ app.layout = html.Div(
             dcc.Graph(id="genre-releases", className = "chart", 
                 config={"displayModeBar": False}, 
                 figure=fig3),
-            dcc.Graph(id="rev-by-type", className = "chart",
+            dcc.Graph(id="budget-distribution", className = "chart",
                 config={"displayModeBar": False}, 
                 figure=fig4), 
             dcc.Graph(id="rev-vs-quality", className = "chart", 
