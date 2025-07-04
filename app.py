@@ -116,9 +116,11 @@ for year, color in zip(years, colors):
 
     fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(year)))
 fig4.update_traces(orientation='h', side='positive', width=3, points=False, 
-                   meanline_visible=True  
-)
-fig4.update_layout(title_x=0.5, title_font_size=24, 
+                   meanline_visible=True)
+fig4.update_layout(title="Budget Distribution by Year",
+                   xaxis_title='Budget',
+                   yaxis_title='Year',
+                   title_x=0.5, title_font_size=24, 
                    title_font=dict(color='#4c9f95'),
                    xaxis_title_font_size=16,
                    xaxis_title_font=dict(color='#4c9f95'),
