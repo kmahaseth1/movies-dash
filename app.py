@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from dash import Dash, dcc, html, dash_table
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.colors import n_colors
 import os
 from dotenv import load_dotenv
 from film_ids import get_ids_by_year
@@ -68,6 +70,9 @@ genres = films['genre'].sort_values().unique()
 types = films['type'].sort_values().unique()
 countries = films['production_countries'].sort_values().unique()
 
+colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 
+                  len(years), colortype='rgb')
+
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
@@ -105,11 +110,14 @@ fig3.update_layout(title_x=0.5, title_font_size=24,
 fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
 fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
 
-fig4 = px.box(films, x='release_year', y='budget',
-               title='Budget Distribution',
-               category_orders={'release_year': ['2024', '2025']},
-               labels={'release_year': 'Year', 
-                       'budget': 'Budget Distribution'})
+fig4 = go.Figure()
+for year, color in zip(years, colors):
+    budget = films[films['release_year'] == year]['budget']
+
+    fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(year)))
+fig4.update_traces(orientation='h', side='positive', width=3, points=False, 
+                   meanline_visible=True  
+)
 fig4.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color='#4c9f95'),
                    xaxis_title_font_size=16,
