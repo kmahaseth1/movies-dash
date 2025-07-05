@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from dash import Dash, dcc, html, dash_table
+from dash import Dash, dcc, html, Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.colors import n_colors
@@ -241,35 +241,35 @@ app.layout = html.Div(
                             className="top"
             ),
                         html.P(f"{highest_grosser}",
-                            className="bottom")
+                            id="highest-grosser", className="bottom")
             ], className="box"),
                 html.Div(children=[
                         html.P("Highest Rated Movie",
                             className="top"
             ),
                         html.P(f"{highest_scorer}",
-                            className="bottom")
+                            id="highest-rated", className="bottom")
             ], className="box"), 
                 html.Div(children=[
                         html.P("Leading Genre by Release Count",
                             className="top"
             ),
                         html.P(f"{most_pop_genre}",
-                            className="bottom")
+                            id="most-pop-genre", className="bottom")
             ], className="box"), 
                 html.Div(children=[
                         html.P("Total Revenue (in millions)",
                             className="top"
             ),
                         html.P(f"${cum_rev:,.0f} MM",
-                            className="bottom")
+                            id="total-rev", className="bottom")
             ], className="box"),
                 html.Div(children=[
                         html.P("Total Movies Released",
                             className="top"
             ),
                         html.P(f"{total_films}",
-                            className="bottom")
+                            id="total-films", className="bottom")
             ], className="box"),
         ], className= "kpis"
         ),
@@ -290,6 +290,27 @@ app.layout = html.Div(
         className="charts")
     ]
 ) 
+
+# Define callback functions to make the filters interactive
+@app.callback(
+    Output("highest-grosser", "children"),
+    Output("highest-rated", "children"),
+    Output("most-pop-genre", "children"),
+    Output("total-rev", "children"),
+    Output("total-films", "children"),
+    Output("top-grossers", "figure"),
+    Output("genre-releases", "figure"),
+    Output("budget-distribution", "figure"),
+    Output("rev-vs-quality", "figure"),
+    Input("year-filter", "value"),
+    Input("genre-filter", "value"),
+    Input("type-filter", "value"),
+    Input("country-filter", "value")
+)
+def update_kpis_and_chart(year, genre, type, country):
+    # PLACEHOLDER
+    print("Updating ...")
+
 
 # Run the dashboard
 if __name__ == "__main__":
