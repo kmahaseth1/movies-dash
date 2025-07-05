@@ -21,21 +21,19 @@ def get_movie_details(details_url, api_key, ids):
         film_dict = {
             'name': film_raw['title'],
             'budget': film_raw['budget'],
-            'type': 'live action',
-            'genre': None,
-            # 'genre': film_raw['genres'][0]['name'] if film_raw['genres'] else None,
+            'genres': [value['name'] for value in film_raw['genres']],
             'production_countries': film_raw['production_countries'][0]['name'] if film_raw['production_countries'] else None,
             'revenue': film_raw['revenue'],
             'vote_average': film_raw['vote_average'],
             'release_year': int(film_raw['release_date'][:4])
-        }
+        } 
 
-        # Get genre and film type
-        for i, film in enumerate(film_raw['genres']):
-            if film['genres'] and film.get("genres", "").lower() == "animation":
-                film_dict['type'] = 'animation'
-                if i + 1 < len(film['genres']):
-                    film_dict['genre'] = film['genres'][i + 1].get("genres")
+        film_dict['type'] = 'animation' if 'animation' in [x.lower() for x in film_dict['genres']] else 'live action'
+        for genre in film_dict['genres']:
+            if genre.lower() == "animation":
+                continue
+            else:
+                film_dict['genre'] = genre.lower()
                 break
 
         # Add the film to the list
