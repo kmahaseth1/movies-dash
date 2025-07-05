@@ -52,6 +52,7 @@ external_stylesheets = [
 ]
 
 # Summary datasets and stats
+"""
 highest_grosser = films.loc[films['revenue'].idxmax(), 'name']
 highest_scorer = films.loc[films['vote_average'].idxmax(), 'name']
 most_pop_genre = films['genre'].value_counts().idxmax()
@@ -64,19 +65,20 @@ genre_data = films.groupby(['release_year', 'genre']).size().reset_index(
 genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
     lambda x: x / x.sum()
 )
-
+"""
 years = films['release_year'].sort_values().unique()
 genres = films['genre'].sort_values().unique()
 types = films['type'].sort_values().unique()
 countries = films['production_countries'].sort_values().unique()
 
+"""
 colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 
                   len(years), colortype='rgb')
-
+"""
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
-
+"""
 # Create graphs for the dashboard
 fig2 = px.bar(films.sort_values(by="revenue", ascending=False).head(10), 
             x="name", y="revenue", title="Highest Grossing Movies",
@@ -148,9 +150,7 @@ fig5.update_traces(mode="markers+text", textposition="top center",
                                                          size=10))
 fig5.update_xaxes(tickfont=dict(color='#4c9f95'))
 fig5.update_yaxes(tickfont=dict(color='#4c9f95'))
-
-
-
+"""
 # Define the dashboard layout
 app.layout = html.Div(
     children=[
@@ -240,52 +240,48 @@ app.layout = html.Div(
                         html.P("Highest Grossing Movie",
                             className="top"
             ),
-                        html.P(f"{highest_grosser}",
+                        html.P(
                             id="highest-grosser", className="bottom")
             ], className="box"),
                 html.Div(children=[
                         html.P("Highest Rated Movie",
                             className="top"
             ),
-                        html.P(f"{highest_scorer}",
+                        html.P(
                             id="highest-rated", className="bottom")
             ], className="box"), 
                 html.Div(children=[
                         html.P("Leading Genre by Release Count",
                             className="top"
             ),
-                        html.P(f"{most_pop_genre}",
+                        html.P(
                             id="most-pop-genre", className="bottom")
             ], className="box"), 
                 html.Div(children=[
                         html.P("Total Revenue (in millions)",
                             className="top"
             ),
-                        html.P(f"${cum_rev:,.0f} MM",
+                        html.P(
                             id="total-rev", className="bottom")
             ], className="box"),
                 html.Div(children=[
                         html.P("Total Movies Released",
                             className="top"
             ),
-                        html.P(f"{total_films}",
+                        html.P(
                             id="total-films", className="bottom")
             ], className="box"),
         ], className= "kpis"
         ),
         html.Div([     
             dcc.Graph(id="top-grossers", className = "chart",
-                config={"displayModeBar": False}, 
-                figure=fig2),
+                config={"displayModeBar": False}),
             dcc.Graph(id="genre-releases", className = "chart", 
-                config={"displayModeBar": False}, 
-                figure=fig3),
+                config={"displayModeBar": False}),
             dcc.Graph(id="budget-distribution", className = "chart",
-                config={"displayModeBar": False}, 
-                figure=fig4), 
+                config={"displayModeBar": False}), 
             dcc.Graph(id="rev-vs-quality", className = "chart", 
-                config={"displayModeBar": False}, 
-                figure=fig5),   
+                config={"displayModeBar": False}),   
             ], 
         className="charts")
     ]
@@ -308,10 +304,128 @@ app.layout = html.Div(
     Input("country-filter", "value")
 )
 def update_kpis_and_chart(year, genre, type, country):
-    # PLACEHOLDER
-    print("Updating ...")
+    filtered = films.copy()
 
+    if year is not None:
+        filtered=filtered[filtered['release_year']==year]
+                     
+    if genre is not None:
+        filtered=filtered[filtered['genre']==genre]
 
+    if type is not None:
+        filtered=filtered[filtered['type']==type]  
+                     
+    if country is not None:
+        filtered=filtered[filtered['production_countries']==country]
+    
+    if filtered.empty:
+        return (
+            "No data available",
+            "No data available",
+            "No data available",
+            "No data available",
+            "No data available",
+            px.bar(),
+            px.bar(),
+            go.Figure(),
+            px.scatter()
+        )
+    
+    # KPI card calculations
+    highest_grosser = filtered.loc[filtered['revenue'].idxmax(), 'name']
+    highest_scorer = filtered.loc[filtered['vote_average'].idxmax(), 'name']
+    most_pop_genre = filtered['genre'].value_counts().idxmax()
+    cum_rev = filtered['revenue'].sum() / 1000000
+    total_films = len(filtered['name'])
+    
+
+    # Create figures
+    genre_data = filtered.groupby(['release_year', 'genre']).size().reset_index(
+    name='count'
+    )
+    genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
+    lambda x: x / x.sum()
+    )
+
+    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 
+                  len(years), colortype='rgb')
+
+    fig2 = px.bar(filtered.sort_values(by="revenue", ascending=False).head(10), 
+            x="name", y="revenue", title="Highest Grossing Movies",
+            labels={'name': 'Film', 'revenue': 'Revenue'})
+    fig2.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)')
+    fig2.update_traces(marker_color='#4c9f95')
+    fig2.update_xaxes(tickfont=dict(color='#4c9f95'))
+    fig2.update_yaxes(tickfont=dict(color='#4c9f95'))
+    
+    fig3 = px.bar(
+        genre_data, 
+        x='prop', y='release_year', color='genre', orientation='h', 
+        height = 300,
+        title="Distribution of Genre of Released Films",
+        labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
+    )
+    fig3.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)',
+                   legend_title_font=dict(color='#4c9f95'),
+                   legend=dict(font=dict(color='#4c9f95')))
+    fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
+    fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
+
+    fig4 = go.Figure()
+    for y, color in zip(years, colors):
+        budget = filtered[filtered['release_year'] == y]['budget']
+
+        fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(y)))
+    fig4.update_traces(orientation='h', side='positive', width=3, points=False, 
+                   meanline_visible=True)
+    fig4.update_layout(title="Budget Distribution by Year",
+                   xaxis_title='Budget',
+                   yaxis_title='Year',
+                   title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)',
+                   legend_title_font=dict(color='#4c9f95'),
+                   legend=dict(font=dict(color='#4c9f95')))
+    fig4.update_xaxes(tickfont=dict(color='#4c9f95'))
+    fig4.update_yaxes(tickfont=dict(color='#4c9f95'))
+
+    fig5 = px.scatter(filtered, x="vote_average", y="revenue", text="name",
+                title="Movie Quality vs Revenue", 
+                labels={'vote_average': 'Average voter score', 
+                        'revenue': 'Revenue'})
+    fig5.update_layout(title_x=0.5, title_font_size=24, 
+                   title_font=dict(color='#4c9f95'),
+                   xaxis_title_font_size=16,
+                   xaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font_size=16,
+                   yaxis_title_font=dict(color='#4c9f95'),
+                   plot_bgcolor='rgba(0,0,0,0)')
+    fig5.update_traces(mode="markers+text", textposition="top center", 
+                   marker_color='#4c9f95', textfont=dict(color='#4c9f95', 
+                                                         size=10))
+    fig5.update_xaxes(tickfont=dict(color='#4c9f95'))
+    fig5.update_yaxes(tickfont=dict(color='#4c9f95'))
+
+    return (
+        f"{highest_grosser}", f"{highest_scorer}", f"{most_pop_genre}", 
+        f"${cum_rev:,.0f} MM", f"{total_films}", fig2, fig3, fig4, fig5)
+        
 # Run the dashboard
 if __name__ == "__main__":
     app.run(debug=True)
