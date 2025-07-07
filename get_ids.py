@@ -1,13 +1,11 @@
 from film_ids import get_ids_by_year
 import os
 from dotenv import load_dotenv
-import pandas as pd
 import csv
 
 load_dotenv()
 api_key = os.getenv("TMDB_API")
 discover_url = "https://api.themoviedb.org/3/discover/movie"
-details_url = "https://api.themoviedb.org/3/movie/"
 
 # Get the movie ids
 ids = []
