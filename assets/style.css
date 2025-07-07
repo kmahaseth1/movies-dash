@@ -39,6 +39,7 @@ body {
     width: 250px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -61,7 +62,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     margin: 0;
 }
