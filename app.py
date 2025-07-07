@@ -52,105 +52,15 @@ external_stylesheets = [
 ]
 
 # Summary datasets and stats
-"""
-highest_grosser = films.loc[films['revenue'].idxmax(), 'name']
-highest_scorer = films.loc[films['vote_average'].idxmax(), 'name']
-most_pop_genre = films['genre'].value_counts().idxmax()
-cum_rev = films['revenue'].sum() / 1000000
-total_films = len(films['name'])
-
-genre_data = films.groupby(['release_year', 'genre']).size().reset_index(
-    name='count'
-)
-genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
-    lambda x: x / x.sum()
-)
-"""
 years = films['release_year'].sort_values().unique()
 genres = films['genre'].sort_values().unique()
 types = films['type'].sort_values().unique()
 countries = films['production_countries'].sort_values().unique()
 
-"""
-colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 
-                  len(years), colortype='rgb')
-"""
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Films Dashboard by Kushagra Mahaseth"
-"""
-# Create graphs for the dashboard
-fig2 = px.bar(films.sort_values(by="revenue", ascending=False).head(10), 
-            x="name", y="revenue", title="Highest Grossing Movies",
-            labels={'name': 'Film', 'revenue': 'Revenue'})
-fig2.update_layout(title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
-                   xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
-                   yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
-                   plot_bgcolor='rgba(0,0,0,0)')
-fig2.update_traces(marker_color='#4c9f95')
-fig2.update_xaxes(tickfont=dict(color='#4c9f95'))
-fig2.update_yaxes(tickfont=dict(color='#4c9f95'))
 
-fig3 = px.bar(
-    genre_data, 
-    x='prop', y='release_year', color='genre', orientation='h', height = 300,
-    title="Distribution of Genre of Released Films",
-    labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
-)
-fig3.update_layout(title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
-                   xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
-                   yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
-                   plot_bgcolor='rgba(0,0,0,0)',
-                   legend_title_font=dict(color='#4c9f95'),
-                   legend=dict(font=dict(color='#4c9f95')))
-fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
-fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
-
-fig4 = go.Figure()
-for year, color in zip(years, colors):
-    budget = films[films['release_year'] == year]['budget']
-
-    fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(year)))
-fig4.update_traces(orientation='h', side='positive', width=3, points=False, 
-                   meanline_visible=True)
-fig4.update_layout(title="Budget Distribution by Year",
-                   xaxis_title='Budget',
-                   yaxis_title='Year',
-                   title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
-                   xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
-                   yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
-                   plot_bgcolor='rgba(0,0,0,0)',
-                   legend_title_font=dict(color='#4c9f95'),
-                   legend=dict(font=dict(color='#4c9f95')))
-fig4.update_xaxes(tickfont=dict(color='#4c9f95'))
-fig4.update_yaxes(tickfont=dict(color='#4c9f95'))
-
-fig5 = px.scatter(films, x="vote_average", y="revenue", text="name",
-                title="Movie Quality vs Revenue", 
-                labels={'vote_average': 'Average voter score', 
-                        'revenue': 'Revenue'})
-fig5.update_layout(title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
-                   xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
-                   yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
-                   plot_bgcolor='rgba(0,0,0,0)')
-fig5.update_traces(mode="markers+text", textposition="top center", 
-                   marker_color='#4c9f95', textfont=dict(color='#4c9f95', 
-                                                         size=10))
-fig5.update_xaxes(tickfont=dict(color='#4c9f95'))
-fig5.update_yaxes(tickfont=dict(color='#4c9f95'))
-"""
 # Define the dashboard layout
 app.layout = html.Div(
     children=[
@@ -340,7 +250,7 @@ def update_kpis_and_chart(year, genre, type, country):
     
     # Create figures
     genre_data = filtered.groupby(['release_year', 'genre']).size().reset_index(
-    name='count'
+        name='count'
     )
     genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(
     lambda x: x / x.sum()
@@ -363,7 +273,7 @@ def update_kpis_and_chart(year, genre, type, country):
     fig2.update_xaxes(tickfont=dict(color='#4c9f95'))
     fig2.update_yaxes(tickfont=dict(color='#4c9f95'))
     
-    if year is None:
+    if year is None and genre is None:
         fig3 = px.bar(
             genre_data, 
             x='prop', y='release_year', color='genre', orientation='h', 
@@ -382,12 +292,33 @@ def update_kpis_and_chart(year, genre, type, country):
                     legend=dict(font=dict(color='#4c9f95')))
         fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
         fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
-    else:
+    elif year is not None:
         fig3 = px.pie(genre_data, values='prop', names="genre",
                       title="Distribution of Genre of Released Films", 
                       hole=0.5, height=600)
         fig3.update_layout(title_x=0.5, title_font_size=24, 
                     title_font=dict(color='#4c9f95'))
+    elif genre is not None:
+        fig3 = px.bar(
+            filtered.groupby('release_year').size().reset_index(name="count"), 
+            x='count', y='release_year',
+            height = 300,
+            title=f"{genre.title()} movies release pattern",
+            labels={'count': 'Number of Movies Released', 
+                    'release_year': 'Year'}
+        )
+        fig3.update_layout(title_x=0.5, title_font_size=24, 
+                    title_font=dict(color='#4c9f95'),
+                    xaxis_title_font_size=16,
+                    xaxis_title_font=dict(color='#4c9f95'),
+                    yaxis_title_font_size=16,
+                    yaxis_title_font=dict(color='#4c9f95'),
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    legend_title_font=dict(color='#4c9f95'),
+                    legend=dict(font=dict(color='#4c9f95')))
+        fig3.update_traces(marker_color='#4c9f95')
+        fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
+        fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
 
     fig4 = go.Figure()
     for y, color in zip(years, colors):
