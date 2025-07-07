@@ -153,7 +153,7 @@ app.layout = html.Div(
             ], className="box"), 
                 html.Div(children=[
                         html.P("Leading Genre by Release Count",
-                            className="top"
+                            id="lead-genre", className="top"
             ),
                         html.P(
                             id="most-pop-genre", className="bottom")
@@ -195,6 +195,7 @@ app.layout = html.Div(
     Output("most-pop-genre", "children"),
     Output("total-rev", "children"),
     Output("total-films", "children"),
+    Output("lead-genre", "children"),
     Output("top-grossers", "figure"),
     Output("genre-releases", "figure"),
     Output("budget-distribution", "figure"),
@@ -232,13 +233,14 @@ def update_kpis_and_chart(year, genre, type, country):
             px.scatter()
         )
     
-    # KPI card calculations
+    # KPI card calculations and titles
     highest_grosser = filtered.loc[filtered['revenue'].idxmax(), 'name']
     highest_scorer = filtered.loc[filtered['vote_average'].idxmax(), 'name']
     most_pop_genre = filtered['genre'].value_counts().idxmax()
     cum_rev = filtered['revenue'].sum() / 1000000
     total_films = len(filtered['name'])
-    
+    genre_card_top="Leading Genre by Release Count"
+
     # Create figures
     genre_data = filtered.groupby(['release_year', 'genre']).size().reset_index(
         name='count'
@@ -310,6 +312,8 @@ def update_kpis_and_chart(year, genre, type, country):
         fig3.update_traces(marker_color='#4c9f95')
         fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
         fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
+        genre_card_top = f"Viewing data on"
+        most_pop_genre = f"{most_pop_genre} movies"
 
     fig4 = go.Figure()
     for y, color in zip(years, colors):
@@ -352,7 +356,8 @@ def update_kpis_and_chart(year, genre, type, country):
 
     return (
         f"{highest_grosser}", f"{highest_scorer}", f"{most_pop_genre}", 
-        f"${cum_rev:,.0f} MM", f"{total_films}", fig2, fig3, fig4, fig5)
+        f"${cum_rev:,.0f} MM", f"{total_films}", genre_card_top, 
+        fig2, fig3, fig4, fig5)
         
 # Run the dashboard
 if __name__ == "__main__":
