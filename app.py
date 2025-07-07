@@ -338,7 +338,6 @@ def update_kpis_and_chart(year, genre, type, country):
     cum_rev = filtered['revenue'].sum() / 1000000
     total_films = len(filtered['name'])
     
-
     # Create figures
     genre_data = filtered.groupby(['release_year', 'genre']).size().reset_index(
     name='count'
@@ -364,24 +363,31 @@ def update_kpis_and_chart(year, genre, type, country):
     fig2.update_xaxes(tickfont=dict(color='#4c9f95'))
     fig2.update_yaxes(tickfont=dict(color='#4c9f95'))
     
-    fig3 = px.bar(
-        genre_data, 
-        x='prop', y='release_year', color='genre', orientation='h', 
-        height = 300,
-        title="Distribution of Genre of Released Films",
-        labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
-    )
-    fig3.update_layout(title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
-                   xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
-                   yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
-                   plot_bgcolor='rgba(0,0,0,0)',
-                   legend_title_font=dict(color='#4c9f95'),
-                   legend=dict(font=dict(color='#4c9f95')))
-    fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
-    fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
+    if year is None:
+        fig3 = px.bar(
+            genre_data, 
+            x='prop', y='release_year', color='genre', orientation='h', 
+            height = 300,
+            title="Distribution of Genre of Released Films",
+            labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
+        )
+        fig3.update_layout(title_x=0.5, title_font_size=24, 
+                    title_font=dict(color='#4c9f95'),
+                    xaxis_title_font_size=16,
+                    xaxis_title_font=dict(color='#4c9f95'),
+                    yaxis_title_font_size=16,
+                    yaxis_title_font=dict(color='#4c9f95'),
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    legend_title_font=dict(color='#4c9f95'),
+                    legend=dict(font=dict(color='#4c9f95')))
+        fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
+        fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
+    else:
+        fig3 = px.pie(genre_data, values='prop', names="genre",
+                      title="Distribution of Genre of Released Films", 
+                      hole=0.5, height=600)
+        fig3.update_layout(title_x=0.5, title_font_size=24, 
+                    title_font=dict(color='#4c9f95'))
 
     fig4 = go.Figure()
     for y, color in zip(years, colors):
