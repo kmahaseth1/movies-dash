@@ -51,5 +51,4 @@ This dashboard analyzes movie data from this decade, offering users the ability 
 - Framework: Dash
 - Visualization: Plotly
 - Data Processing: Pandas, NumPy
-- Styling: Dash Bootstrap Components, Custom CSS
 - Data Source: The Movie Database (TMDB) API
