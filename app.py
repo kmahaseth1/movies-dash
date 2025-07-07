@@ -152,8 +152,7 @@ app.layout = html.Div(
                             id="highest-rated", className="bottom")
             ], className="box"), 
                 html.Div(children=[
-                        html.P("Leading Genre by Release Count",
-                            id="lead-genre", className="top"
+                        html.P(id="lead-genre", className="top"
             ),
                         html.P(
                             id="most-pop-genre", className="bottom")
