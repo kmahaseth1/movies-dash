@@ -15,13 +15,12 @@ This dashboard analyzes movie data from this decade, offering users the ability 
 - Chart Components: All visualization components are styled and formatted
 - Layout Design: Complete dashboard layout with responsive grid system
 - UI/UX: Modern, professional styling and component design
+- Interactivity: Charts and KPIs update based on filters via Dash callbacks
 
 ### In Progress
-- Callback Functions: Interactive functionality between components
 - Full Data Integration: Currently working with a subset due to large dataset size
 
 ### TODO
-- [ ] Implement Dash callbacks for interactivity
 - [ ] Integrate complete dataset
 - [ ] Implement caching for performance
 - [ ] Deploy to production environment
