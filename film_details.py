@@ -18,7 +18,7 @@ def get_movie_details(details_url, api_key, ids):
 
     # Extract other metrics
     film_dict = {
-        'name': film_raw['title'],
+        'name': film_raw['title'] if film_raw['title'] else None,
         'budget': film_raw['budget'],
         'genres': [value['name'] for value in film_raw['genres']],
         'production_countries': film_raw['production_countries'][0]['name'] if film_raw['production_countries'] else None,
