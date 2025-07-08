@@ -31,6 +31,9 @@ films = pd.DataFrame(temp_data)
 films['release_year'] = films['release_year'].astype(str)
 films = films[films['budget'] != 0]
 
+# Set the variable to toggle cards and charts' colors
+dash_color = '#4c9f95'
+
 # Import an external CSS file containing necessary font family
 external_stylesheets = [
     {
@@ -255,15 +258,15 @@ def update_kpis_and_chart(year, genre, type, country):
             x="name", y="revenue", title="Highest Grossing Movies",
             labels={'name': 'Film', 'revenue': 'Revenue'})
     fig2.update_layout(title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
+                   title_font=dict(color=dash_color),
                    xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
+                   xaxis_title_font=dict(color=dash_color),
                    yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font=dict(color=dash_color),
                    plot_bgcolor='rgba(0,0,0,0)')
-    fig2.update_traces(marker_color='#4c9f95')
-    fig2.update_xaxes(tickfont=dict(color='#4c9f95'))
-    fig2.update_yaxes(tickfont=dict(color='#4c9f95'))
+    fig2.update_traces(marker_color=dash_color)
+    fig2.update_xaxes(tickfont=dict(color=dash_color))
+    fig2.update_yaxes(tickfont=dict(color=dash_color))
     
     if year is None and genre is None:
         fig3 = px.bar(
@@ -274,22 +277,22 @@ def update_kpis_and_chart(year, genre, type, country):
             labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
         )
         fig3.update_layout(title_x=0.5, title_font_size=24, 
-                    title_font=dict(color='#4c9f95'),
+                    title_font=dict(color=dash_color),
                     xaxis_title_font_size=16,
-                    xaxis_title_font=dict(color='#4c9f95'),
+                    xaxis_title_font=dict(color=dash_color),
                     yaxis_title_font_size=16,
-                    yaxis_title_font=dict(color='#4c9f95'),
+                    yaxis_title_font=dict(color=dash_color),
                     plot_bgcolor='rgba(0,0,0,0)',
-                    legend_title_font=dict(color='#4c9f95'),
-                    legend=dict(font=dict(color='#4c9f95')))
-        fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
-        fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
+                    legend_title_font=dict(color=dash_color),
+                    legend=dict(font=dict(color=dash_color)))
+        fig3.update_xaxes(tickfont=dict(color=dash_color))
+        fig3.update_yaxes(tickfont=dict(color=dash_color))
     elif year is not None:
         fig3 = px.pie(genre_data, values='prop', names="genre",
                       title="Distribution of Genre of Released Films", 
                       hole=0.5, height=600)
         fig3.update_layout(title_x=0.5, title_font_size=24, 
-                    title_font=dict(color='#4c9f95'))
+                    title_font=dict(color=dash_color))
     elif genre is not None:
         fig3 = px.bar(
             filtered.groupby('release_year').size().reset_index(name="count"), 
@@ -300,17 +303,17 @@ def update_kpis_and_chart(year, genre, type, country):
                     'release_year': 'Year'}
         )
         fig3.update_layout(title_x=0.5, title_font_size=24, 
-                    title_font=dict(color='#4c9f95'),
+                    title_font=dict(color=dash_color),
                     xaxis_title_font_size=16,
-                    xaxis_title_font=dict(color='#4c9f95'),
+                    xaxis_title_font=dict(color=dash_color),
                     yaxis_title_font_size=16,
-                    yaxis_title_font=dict(color='#4c9f95'),
+                    yaxis_title_font=dict(color=dash_color),
                     plot_bgcolor='rgba(0,0,0,0)',
-                    legend_title_font=dict(color='#4c9f95'),
-                    legend=dict(font=dict(color='#4c9f95')))
-        fig3.update_traces(marker_color='#4c9f95')
-        fig3.update_xaxes(tickfont=dict(color='#4c9f95'))
-        fig3.update_yaxes(tickfont=dict(color='#4c9f95'))
+                    legend_title_font=dict(color=dash_color),
+                    legend=dict(font=dict(color=dash_color)))
+        fig3.update_traces(marker_color=dash_color)
+        fig3.update_xaxes(tickfont=dict(color=dash_color))
+        fig3.update_yaxes(tickfont=dict(color=dash_color))
         genre_card_top = f"Viewing data on"
         most_pop_genre = f"{most_pop_genre} movies"
 
@@ -325,33 +328,33 @@ def update_kpis_and_chart(year, genre, type, country):
                    xaxis_title='Budget',
                    yaxis_title='Year',
                    title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
+                   title_font=dict(color=dash_color),
                    xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
+                   xaxis_title_font=dict(color=dash_color),
                    yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font=dict(color=dash_color),
                    plot_bgcolor='rgba(0,0,0,0)',
-                   legend_title_font=dict(color='#4c9f95'),
-                   legend=dict(font=dict(color='#4c9f95')))
-    fig4.update_xaxes(tickfont=dict(color='#4c9f95'))
-    fig4.update_yaxes(tickfont=dict(color='#4c9f95'))
+                   legend_title_font=dict(color=dash_color),
+                   legend=dict(font=dict(color=dash_color)))
+    fig4.update_xaxes(tickfont=dict(color=dash_color))
+    fig4.update_yaxes(tickfont=dict(color=dash_color))
 
     fig5 = px.scatter(filtered, x="vote_average", y="revenue", text="name",
                 title="Movie Quality vs Revenue", 
                 labels={'vote_average': 'Average voter score', 
                         'revenue': 'Revenue'})
     fig5.update_layout(title_x=0.5, title_font_size=24, 
-                   title_font=dict(color='#4c9f95'),
+                   title_font=dict(color=dash_color),
                    xaxis_title_font_size=16,
-                   xaxis_title_font=dict(color='#4c9f95'),
+                   xaxis_title_font=dict(color=dash_color),
                    yaxis_title_font_size=16,
-                   yaxis_title_font=dict(color='#4c9f95'),
+                   yaxis_title_font=dict(color=dash_color),
                    plot_bgcolor='rgba(0,0,0,0)')
     fig5.update_traces(mode="markers+text", textposition="top center", 
-                   marker_color='#4c9f95', textfont=dict(color='#4c9f95', 
+                   marker_color=dash_color, textfont=dict(color=dash_color, 
                                                          size=10))
-    fig5.update_xaxes(tickfont=dict(color='#4c9f95'))
-    fig5.update_yaxes(tickfont=dict(color='#4c9f95'))
+    fig5.update_xaxes(tickfont=dict(color=dash_color))
+    fig5.update_yaxes(tickfont=dict(color=dash_color))
 
     return (
         f"{highest_grosser}", f"{highest_scorer}", f"{most_pop_genre}", 
