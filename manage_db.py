@@ -40,8 +40,7 @@ con.execute(
         release_year TEXT,
         type TEXT,
         genre TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        production_country TEXT
     )
     '''
 )
@@ -68,7 +67,7 @@ for batch in range(total_batches):
     batch_success = 0
     batch_errors = 0
 
-    for index, id in enumerate(batch_ids):
+    for id in batch_ids:
         try:
             # Get the data using an API call and append to the table
             film_dict = get_movie_details(details_url, api_key, id)
@@ -77,27 +76,18 @@ for batch in range(total_batches):
             film.to_sql('movie_data_raw', con, if_exists='append', index=False)
             batch_success += 1
         except Exception as e:
-            # Store error
-            con.execute(
-                '''
-                INSERT INTO movie_data_raw (
-                    tmdb_id, name, budget, genres, production_countries, revenue,
-                    vote_average, release_year, type, genre
-                    ) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ''',
-                (id, None, None, None, None, None, None, None, None, None)
-            )
             batch_errors += 1
+            continue
         
         processed_count += 1
 
         # Brief sleep to respect rate limits
         time.sleep(0.5)
 
+    print(batch_success, batch_errors)
+
     # Commit periodically within batch
     if processed_count % COMMIT_FREQUENCY == 0:
         con.commit()
 
-print(batch_success, batch_errors)
 con.close()
