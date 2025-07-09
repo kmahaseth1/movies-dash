@@ -282,7 +282,7 @@ def update_kpis_and_chart(year, genre, type, country):
         fig3 = px.bar(
             genre_data, 
             x='prop', y='release_year', color='genre', orientation='h', 
-            height = 300,
+            height = 400,
             title="Distribution of Genre of Released Films",
             labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
         )
