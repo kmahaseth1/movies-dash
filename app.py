@@ -4,33 +4,34 @@ from dash import Dash, dcc, html, Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.colors import n_colors
-import os
-from dotenv import load_dotenv
-from film_details import get_movie_details
+import sqlite3
 from temp_data import temp_data
 
 """
-# Data processing
-# API call setup
-load_dotenv()
-api_key = os.getenv("TMDB_API")
-details_url = "https://api.themoviedb.org/3/movie/"
-
-# Extract movie details using get_movie_details
-films_dict = get_movie_details(details_url, api_key, ids)
-
-# Convert the dictionary into a DataFrame
-films = pd.DataFrame(films_dict)
-films['release_year'] = films['release_year'].astype(str)
-films = films[films['budget'] != 0]
-"""
-
 # Temporary data to setup the dashboard
 # Convert the temp data from a list of a data frame and clean the DF
 films = pd.DataFrame(temp_data)
 films['release_year'] = films['release_year'].astype(str)
 films = films[films['budget'] != 0]
 
+"""
+#Connect to the database
+con = sqlite3.connect('movies_2020s.db')
+films = pd.read_sql(
+    '''
+    SELECT * FROM movie_data_raw
+    WHERE name IS NOT NULL
+        AND budget > 0
+        AND genre IS NOT NULL
+        AND vote_average > 0
+        AND release_year IS NOT NULL
+        AND revenue > 0
+        AND production_country IS NOT NULL
+    ''',
+    con
+)
+
+con.close()
 # Set the variable to toggle cards and charts' colors
 dash_color = '#4c9f95'
 
@@ -49,7 +50,7 @@ external_stylesheets = [
 years = films['release_year'].sort_values().unique()
 genres = films['genre'].sort_values().unique()
 types = films['type'].sort_values().unique()
-countries = films['production_countries'].sort_values().unique()
+countries = films['production_country'].sort_values().unique()
 
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
@@ -208,6 +209,15 @@ app.layout = html.Div(
     Input("country-filter", "value")
 )
 def update_kpis_and_chart(year, genre, type, country):
+    """
+    # Open a SQLite connection
+    with sqlite3.connect('movies_2020s.db') as con:
+        query = '''
+                SELECT * FROM movie_data_raw
+                WHERE name IS NOT NULL
+        '''
+        films = pd.read_sql(query, con)
+    """    
     filtered = films.copy()
 
     if year is not None:
@@ -238,7 +248,7 @@ def update_kpis_and_chart(year, genre, type, country):
     # KPI card calculations and titles
     highest_grosser = filtered.loc[filtered['revenue'].idxmax(), 'name']
     highest_scorer = filtered.loc[filtered['vote_average'].idxmax(), 'name']
-    most_pop_genre = filtered['genre'].value_counts().idxmax()
+    most_pop_genre = filtered['genre'].value_counts().idxmax().title()
     cum_rev = filtered['revenue'].sum() / 1000000
     total_films = len(filtered['name'])
     genre_card_top="Leading Genre by Release Count"
@@ -339,7 +349,7 @@ def update_kpis_and_chart(year, genre, type, country):
     fig4.update_xaxes(tickfont=dict(color=dash_color))
     fig4.update_yaxes(tickfont=dict(color=dash_color))
 
-    fig5 = px.scatter(filtered, x="vote_average", y="revenue", text="name",
+    fig5 = px.scatter(filtered, x="vote_average", y="revenue",
                 title="Movie Quality vs Revenue", 
                 labels={'vote_average': 'Average voter score', 
                         'revenue': 'Revenue'})
@@ -350,7 +360,7 @@ def update_kpis_and_chart(year, genre, type, country):
                    yaxis_title_font_size=16,
                    yaxis_title_font=dict(color=dash_color),
                    plot_bgcolor='rgba(0,0,0,0)')
-    fig5.update_traces(mode="markers+text", textposition="top center", 
+    fig5.update_traces(textposition="top center", 
                    marker_color=dash_color, textfont=dict(color=dash_color, 
                                                          size=10))
     fig5.update_xaxes(tickfont=dict(color=dash_color))
