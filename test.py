@@ -4,12 +4,12 @@ from film_details import get_movie_details
 import os
 from dotenv import load_dotenv
 
-"""
+
 id = 747358
 load_dotenv()
 api_key = os.getenv("TMDB_API")
 details_url = "https://api.themoviedb.org/3/movie/"
-
+"""
 film_dict = get_movie_details(details_url, api_key, id)
 film = pd.DataFrame(film_dict)
 
@@ -49,11 +49,26 @@ for row in rows:
     print(row)
 
 con.close()
-"""
+
 
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
 
 cursor.execute("DROP TABLE IF EXISTS movie_data_raw")
 con.commit()
+con.close()
+
+"""
+# See the data table
+con = sqlite3.connect('movies_2020s.db')
+cursor = con.cursor()
+cursor.execute('''
+               SELECT * FROM movie_data_raw
+               WHERE name like 'The Wild Robot'
+               ''')
+rows = cursor.fetchall()
+# Print the results
+for row in rows:
+    print(row)
+
 con.close()
