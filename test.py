@@ -4,12 +4,12 @@ from film_details import get_movie_details
 import os
 from dotenv import load_dotenv
 
-
+"""
 id = 747358
 load_dotenv()
 api_key = os.getenv("TMDB_API")
 details_url = "https://api.themoviedb.org/3/movie/"
-"""
+
 film_dict = get_movie_details(details_url, api_key, id)
 film = pd.DataFrame(film_dict)
 
@@ -49,7 +49,7 @@ for row in rows:
     print(row)
 
 con.close()
-
+"""
 
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
@@ -72,3 +72,4 @@ for row in rows:
     print(row)
 
 con.close()
+"""
