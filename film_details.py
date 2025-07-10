@@ -40,8 +40,11 @@ def get_movie_details(details_url, api_key, id):
             film_dict['genre'] = genre.title()
             break
     production_countries = json.loads(film_dict['production_countries'])
-    if production_countries: 
-        film_dict['production_country'] = production_countries[0]
+    if production_countries:
+        if "United States of America" in production_countries:
+            film_dict['production_country'] = "United States of America"
+        else:
+            film_dict['production_country'] = production_countries[0]
     else:
         film_dict['production_country'] = None
 
