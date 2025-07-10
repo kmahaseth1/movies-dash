@@ -27,9 +27,12 @@ def get_movie_details(details_url, api_key, id):
         'vote_average': film_raw.get('vote_average'),
         'release_year': film_raw.get('release_date', '')[:4]
     } 
-
-    film_dict['type'] = 'animation' if 'animation' in [x.lower() for x in film_dict['genres']] else 'live action'
     genres = json.loads(film_dict['genres'])
+    if 'Animation' in genres:
+        film_dict['type'] = 'animation'
+    else:
+        film_dict['type'] = 'live action'
+    
     for genre in genres:
         if genre.lower() == "animation":
             continue
