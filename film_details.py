@@ -19,6 +19,7 @@ def get_movie_details(details_url, api_key, id):
 
     # Extract other metrics
     film_dict = {
+        'tmdb_id': id,
         'name': film_raw.get('title'),
         'budget': film_raw.get('budget'),
         'genres': json.dumps([value['name'] for value in film_raw.get('genres', [])]),
