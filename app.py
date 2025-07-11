@@ -352,7 +352,7 @@ def update_kpis_and_chart(year, genre, type, country):
     fig5 = px.scatter(filtered, x="vote_average", y="revenue",
                 title="Movie Quality vs Revenue", 
                 labels={'vote_average': 'Average voter score', 
-                        'revenue': 'Revenue'})
+                        'revenue': 'Revenue'}, opacity=0.6)
     fig5.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color=dash_color),
                    xaxis_title_font_size=16,
