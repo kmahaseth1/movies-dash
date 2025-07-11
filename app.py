@@ -230,7 +230,7 @@ def update_kpis_and_chart(year, genre, type, country):
         filtered=filtered[filtered['type']==type]  
                      
     if country is not None:
-        filtered=filtered[filtered['production_countries']==country]
+        filtered=filtered[filtered['production_country']==country]
     
     if filtered.empty:
         return (
