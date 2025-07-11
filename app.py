@@ -252,6 +252,27 @@ def update_kpis_and_chart(year, genre, type, country):
     lambda x: x / x.sum()
     )
 
+    genre_threshold = 0.03
+
+    small_genres = genre_data[genre_data['prop'] < genre_threshold]
+    other_count = small_genres.groupby('release_year')['count'].sum().reset_index()
+    other_prop = small_genres.groupby('release_year')['prop'].sum().reset_index()
+
+    other_genres = pd.DataFrame({
+            'release_year': other_count['release_year'],
+            'genre': 'Other',
+            'count': other_count['count'],
+            'prop': other_prop['prop']
+    })
+
+    genre_data = genre_data[~genre_data['genre'].isin(small_genres['genre'])]
+
+    genre_data = pd.concat([genre_data, other_genres])
+
+    genre_data['prop'] = genre_data.groupby('release_year')['count'].transform(lambda x: x / x.sum())
+
+    genre_data = genre_data.reset_index(drop=True)
+
     colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 
                   len(years), colortype='rgb')
 
