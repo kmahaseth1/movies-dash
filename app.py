@@ -272,7 +272,7 @@ def update_kpis_and_chart(year, genre, type, country):
 
     genre_data = genre_data.reset_index(drop=True)
 
-    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 
+    colors = n_colors('rgb(130, 100, 75)', 'rgb(76, 159, 149)', 
                   len(years), colortype='rgb')
 
     fig2 = px.bar(filtered.sort_values(by="revenue", ascending=False).head(10), 
@@ -357,11 +357,15 @@ def update_kpis_and_chart(year, genre, type, country):
         most_pop_genre = f"{most_pop_genre} movies"
 
     fig4 = go.Figure()
-    for y, color in zip(years, colors):
+    for i, (y, color) in enumerate(zip(years, colors)):
         budget = filtered[filtered['release_year'] == y]['budget']
 
-        fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(y)))
-    fig4.update_traces(orientation='h', side='positive', width=3, points=False, 
+        # Offset
+        y_offset=i*2.5
+
+        fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(y),
+                                 y=[y_offset] * len(budget)))
+    fig4.update_traces(orientation='h', side='positive', width=10, points=False, 
                    meanline_visible=True)
     fig4.update_layout(title="Budget Distribution by Year",
                    xaxis_title='Budget',
