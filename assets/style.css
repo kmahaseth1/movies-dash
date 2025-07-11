@@ -1,13 +1,13 @@
 body {
     font-family: 'Poppins', sans-serif;
     margin: 10px;
-    background-color: #e6fff9;
+    background-color: #F2EFEA;
     color: #4c9f95;
 }
 
 .header {
     font-family: "Bookman", "URW Bookman L", "serif";
-    background-color: #4c9f95;
+    background-color: #2e5f5d;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@ body {
 }
 
 .box {
-    border-color: #30bba9;
+    border-color: #3b7e7b;
     border-width: 3px;
     border-radius: 5px;
     border-style: solid;
@@ -50,8 +50,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #30bba9;
-    color: #ffffff;
+    background-color: #3b7e7b;
+    color: #FFFFFF;
     margin: 0;
 }
 
@@ -65,6 +65,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     margin: 0;
+    color: #3b7e7b;
 }
 
 .charts {
@@ -98,7 +99,7 @@ body {
 .menu-title {
     margin-bottom: 5px;
     font-weight: bold;
-    color: #079A82;
+    color: #5c3a31;
 }
 
 .menu {
@@ -118,10 +119,11 @@ body {
     width: 200px;
 }
 
-.table-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    
-}
+/*
+GO TO COLORS
+#e6fff9;
+#4c9f95; <-- FAVE
+#315179;
+#2c688e;
+#079A82;
+*/
