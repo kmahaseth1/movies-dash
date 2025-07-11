@@ -23,7 +23,7 @@ films = pd.read_sql(
 
 con.close()
 # Set the variable to toggle cards and charts' colors
-dash_color = '#4c9f95'
+dash_color = '#7b5e57'
 
 # Import an external CSS file containing necessary font family
 external_stylesheets = [
