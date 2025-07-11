@@ -16,13 +16,13 @@ This dashboard analyzes movie data from this decade, offering users the ability 
 - Layout Design: Complete dashboard layout with responsive grid system
 - UI/UX: Modern, professional styling and component design
 - Interactivity: Charts and KPIs update based on filters via Dash callbacks
+- Full Data Integration: Includes all movies with complete data from 2020s present in the TMDB
 
 ### In Progress
-- Full Data Integration: Currently working with a subset due to large dataset size
+- Implement caching for performance
 
 ### TODO
-- [ ] Integrate complete dataset
-- [ ] Implement caching for performance
+
 - [ ] Deploy to production environment
 
 ## Dashboard Features
