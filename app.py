@@ -198,16 +198,7 @@ app.layout = html.Div(
     Input("type-filter", "value"),
     Input("country-filter", "value")
 )
-def update_kpis_and_chart(year, genre, type, country):
-    """
-    # Open a SQLite connection
-    with sqlite3.connect('movies_2020s.db') as con:
-        query = '''
-                SELECT * FROM movie_data_raw
-                WHERE name IS NOT NULL
-        '''
-        films = pd.read_sql(query, con)
-    """    
+def update_kpis_and_chart(year, genre, type, country):  
     filtered = films.copy()
 
     if year is not None:
@@ -347,9 +338,7 @@ def update_kpis_and_chart(year, genre, type, country):
                     xaxis_title_font=dict(color='#3d6450'),
                     yaxis_title_font_size=16,
                     yaxis_title_font=dict(color='#3d6450'),
-                    plot_bgcolor='rgba(0,0,0,0)',
-                    legend_title_font=dict(color='#3d6450'),
-                    legend=dict(font=dict(color='#3d6450')))
+                    plot_bgcolor='rgba(0,0,0,0)')
         fig3.update_traces(marker_color='#3d6450')
         fig3.update_xaxes(tickfont=dict(color='#3d6450'))
         fig3.update_yaxes(tickfont=dict(color='#3d6450'))
