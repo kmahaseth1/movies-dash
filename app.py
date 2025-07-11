@@ -368,7 +368,7 @@ def update_kpis_and_chart(year, genre, type, country):
 
     return (
         f"{highest_grosser}", f"{highest_scorer}", f"{most_pop_genre}", 
-        f"${cum_rev:,.0f} MM", f"{total_films}", genre_card_top, 
+        f"${cum_rev:,.0f} MM", f"{total_films:,}", genre_card_top, 
         fig2, fig3, fig4, fig5)
         
 # Run the dashboard
