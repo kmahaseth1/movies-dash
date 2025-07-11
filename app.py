@@ -319,7 +319,7 @@ def update_kpis_and_chart(year, genre, type, country):
         fig3.update_yaxes(tickfont=dict(color=dash_color))
     elif year is not None:
         fig3 = px.pie(genre_data, values='prop', names="genre",
-                      title="Distribution of Genre of Released Films", 
+                      title=f"Distribution of Genre of Released Films in {year}", 
                       hole=0.5, height=600,
                       color_discrete_sequence=[
                         '#173125',
@@ -336,23 +336,23 @@ def update_kpis_and_chart(year, genre, type, country):
         fig3 = px.bar(
             filtered.groupby('release_year').size().reset_index(name="count"), 
             x='count', y='release_year',
-            height = 300,
+            height = 500,
             title=f"{genre.title()} movies release pattern",
             labels={'count': 'Number of Movies Released', 
                     'release_year': 'Year'}
         )
         fig3.update_layout(title_x=0.5, title_font_size=24, 
-                    title_font=dict(color=dash_color),
+                    title_font=dict(color='#3d6450'),
                     xaxis_title_font_size=16,
-                    xaxis_title_font=dict(color=dash_color),
+                    xaxis_title_font=dict(color='#3d6450'),
                     yaxis_title_font_size=16,
-                    yaxis_title_font=dict(color=dash_color),
+                    yaxis_title_font=dict(color='#3d6450'),
                     plot_bgcolor='rgba(0,0,0,0)',
-                    legend_title_font=dict(color=dash_color),
-                    legend=dict(font=dict(color=dash_color)))
-        fig3.update_traces(marker_color=dash_color)
-        fig3.update_xaxes(tickfont=dict(color=dash_color))
-        fig3.update_yaxes(tickfont=dict(color=dash_color))
+                    legend_title_font=dict(color='#3d6450'),
+                    legend=dict(font=dict(color='#3d6450')))
+        fig3.update_traces(marker_color='#3d6450')
+        fig3.update_xaxes(tickfont=dict(color='#3d6450'))
+        fig3.update_yaxes(tickfont=dict(color='#3d6450'))
         genre_card_top = f"Viewing data on"
         most_pop_genre = f"{most_pop_genre} movies"
 
@@ -400,7 +400,7 @@ def update_kpis_and_chart(year, genre, type, country):
         f"{highest_grosser}", f"{highest_scorer}", f"{most_pop_genre}", 
         f"${cum_rev:,.0f} MM", f"{total_films:,}", genre_card_top, 
         fig2, fig3, fig4, fig5)
-        
+
 # Run the dashboard
 if __name__ == "__main__":
     app.run(debug=True)
