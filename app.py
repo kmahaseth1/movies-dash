@@ -293,9 +293,18 @@ def update_kpis_and_chart(year, genre, type, country):
         fig3 = px.bar(
             genre_data, 
             x='prop', y='release_year', color='genre', orientation='h', 
-            height = 400,
+            height = 500,
             title="Distribution of Genre of Released Films",
-            labels={'prop': 'Proportion of Releases', 'release_year': 'Year'}
+            labels={'prop': 'Proportion of Releases', 'release_year': 'Year'},
+            color_discrete_map={
+                'Action': '#173125',
+                'Comedy': '#424C21',
+                'Drama': '#7D8769',
+                'Family':'#E1D9C9',
+                'Horror':'#AE9372',
+                'Science Fiction': '#B27D57',
+                'Other': '#7F4B30'
+            }
         )
         fig3.update_layout(title_x=0.5, title_font_size=24, 
                     title_font=dict(color=dash_color),
@@ -311,7 +320,16 @@ def update_kpis_and_chart(year, genre, type, country):
     elif year is not None:
         fig3 = px.pie(genre_data, values='prop', names="genre",
                       title="Distribution of Genre of Released Films", 
-                      hole=0.5, height=600)
+                      hole=0.5, height=600,
+                      color_discrete_sequence=[
+                        '#173125',
+                        '#424C21',
+                        '#7D8769',
+                        '#7F4B30',
+                        '#B27D57',
+                        '#AE9372',
+                        '#E1D9C9'
+            ])
         fig3.update_layout(title_x=0.5, title_font_size=24, 
                     title_font=dict(color=dash_color))
     elif genre is not None:
