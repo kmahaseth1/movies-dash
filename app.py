@@ -341,9 +341,10 @@ def update_kpis_and_chart(year, genre, type, country):
     fig4.update_yaxes(tickfont=dict(color=dash_color))
 
     fig5 = px.scatter(filtered, x="vote_average", y="revenue",
-                title="Movie Quality vs Revenue", 
+                title="Voter Score vs. Log-Transformed Revenue", 
                 labels={'vote_average': 'Average voter score', 
-                        'revenue': 'Revenue'}, opacity=0.6)
+                        'revenue': 'Log of Revenue'}, opacity=0.4,
+                        log_y=True)
     fig5.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color=dash_color),
                    xaxis_title_font_size=16,
@@ -351,7 +352,7 @@ def update_kpis_and_chart(year, genre, type, country):
                    yaxis_title_font_size=16,
                    yaxis_title_font=dict(color=dash_color),
                    plot_bgcolor='rgba(0,0,0,0)')
-    fig5.update_traces(textposition="top center", 
+    fig5.update_traces(textposition="top center", marker=dict(size=7.5),
                    marker_color=dash_color, textfont=dict(color=dash_color, 
                                                          size=10))
     fig5.update_xaxes(tickfont=dict(color=dash_color))
