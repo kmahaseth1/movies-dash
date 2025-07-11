@@ -49,7 +49,7 @@ for row in rows:
     print(row)
 
 con.close()
-"""
+
 
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
@@ -64,7 +64,7 @@ con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
 cursor.execute('''
                SELECT * FROM movie_data_raw
-               WHERE name like 'The Wild Robot'
+               LIMIT 100
                ''')
 rows = cursor.fetchall()
 # Print the results
@@ -72,4 +72,3 @@ for row in rows:
     print(row)
 
 con.close()
-"""
