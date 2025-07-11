@@ -11,12 +11,14 @@ films = pd.read_sql(
     '''
     SELECT * FROM movie_data_raw
     WHERE name IS NOT NULL
-        AND budget > 0
         AND genre IS NOT NULL
-        AND vote_average > 0
+        AND genre <> 'Documentary'
         AND release_year IS NOT NULL
+        AND TRIM(release_year) <> ''
+        AND TRIM(genre) <> ''
+        AND budget > 100000
+        AND vote_average > 0
         AND revenue > 0
-        AND production_country IS NOT NULL
     ''',
     con
 )
@@ -37,10 +39,10 @@ external_stylesheets = [
 ]
 
 # Summary datasets and stats
-years = films['release_year'].sort_values().unique()
-genres = films['genre'].sort_values().unique()
-types = films['type'].sort_values().unique()
-countries = films['production_country'].sort_values().unique()
+years = films['release_year'].dropna().sort_values().unique()
+genres = films['genre'].dropna().sort_values().unique()
+types = films['type'].dropna().sort_values().unique()
+countries = films['production_country'].dropna().sort_values().unique()
 
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
@@ -284,16 +286,17 @@ def update_kpis_and_chart(year, genre, type, country):
         fig3 = px.bar(
             genre_data, 
             x='prop', y='release_year', color='genre', orientation='h', 
-            height = 500,
+            height = 600,
             title="Distribution of Genre of Released Films",
             labels={'prop': 'Proportion of Releases', 'release_year': 'Year'},
             color_discrete_map={
-                'Action': '#173125',
-                'Comedy': '#424C21',
-                'Drama': '#7D8769',
-                'Family':'#E1D9C9',
-                'Horror':'#AE9372',
-                'Science Fiction': '#B27D57',
+                'Action': '#212E40',
+                'Comedy': '#173125',
+                'Drama': '#424C21',
+                'Family': '#7D8769',
+                'Horror':'#E1D9C9',
+                'Science Fiction':'#AE9372',
+                'Thriller': '#B27D57',
                 'Other': '#7F4B30'
             }
         )
@@ -313,6 +316,7 @@ def update_kpis_and_chart(year, genre, type, country):
                       title=f"Distribution of Genre of Released Films in {year}", 
                       hole=0.5, height=600,
                       color_discrete_sequence=[
+                        '#212E40',
                         '#173125',
                         '#424C21',
                         '#7D8769',
@@ -346,16 +350,12 @@ def update_kpis_and_chart(year, genre, type, country):
         most_pop_genre = f"{most_pop_genre} movies"
 
     fig4 = go.Figure()
-    for i, (y, color) in enumerate(zip(years, colors)):
-        budget = filtered[filtered['release_year'] == y]['budget']
+    for y, color in zip(years, colors):
+        budget = filtered[(filtered['release_year'] == y)]['budget']
 
-        # Offset
-        y_offset=i*2.5
-
-        fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(y),
-                                 y=[y_offset] * len(budget)))
-    fig4.update_traces(orientation='h', side='positive', width=10, points=False, 
-                   meanline_visible=True)
+        fig4.add_trace(go.Violin(x=budget, line_color=color, name=str(y)))
+    fig4.update_traces(orientation='h', side='positive', width=3, 
+                       points='outliers', meanline_visible=True)
     fig4.update_layout(title="Budget Distribution by Year",
                    xaxis_title='Budget',
                    yaxis_title='Year',
@@ -365,9 +365,7 @@ def update_kpis_and_chart(year, genre, type, country):
                    xaxis_title_font=dict(color=dash_color),
                    yaxis_title_font_size=16,
                    yaxis_title_font=dict(color=dash_color),
-                   plot_bgcolor='rgba(0,0,0,0)',
-                   legend_title_font=dict(color=dash_color),
-                   legend=dict(font=dict(color=dash_color)))
+                   plot_bgcolor='rgba(0,0,0,0)')
     fig4.update_xaxes(tickfont=dict(color=dash_color))
     fig4.update_yaxes(tickfont=dict(color=dash_color))
 
