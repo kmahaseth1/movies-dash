@@ -5,16 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.colors import n_colors
 import sqlite3
-from temp_data import temp_data
 
-"""
-# Temporary data to setup the dashboard
-# Convert the temp data from a list of a data frame and clean the DF
-films = pd.DataFrame(temp_data)
-films['release_year'] = films['release_year'].astype(str)
-films = films[films['budget'] != 0]
-
-"""
 #Connect to the database
 con = sqlite3.connect('movies_2020s.db')
 films = pd.read_sql(
