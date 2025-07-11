@@ -31,8 +31,8 @@ body {
 
 .box {
     border-color: #30bba9;
-    border-width: 1px;
-    border-radius: 1px;
+    border-width: 3px;
+    border-radius: 5px;
     border-style: solid;
     background-color: #FFFFFF;
     height: 100px;
