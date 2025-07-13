@@ -19,7 +19,10 @@ This dashboard analyzes movie data from this decade, offering users the ability 
 - Full Data Integration: Includes all movies with complete data from 2020s present in the TMDB
 
 ### In Progress
-- Implement caching for performance
+- Data Correction:
+    - Extract Production Country and Language from Wikipedia API
+    - Write an API to extract data from the-numbers.com
+    - Extract budget and total gross data from the-numbers.com
 
 ### TODO
 
