@@ -21,12 +21,12 @@ This dashboard analyzes movie data from this decade, offering users the ability 
 ### In Progress
 - Data Correction:
     - Extract Production Country and Language from Wikipedia API
-    - Write an API to extract data from the-numbers.com
-    - Extract budget and total gross data from the-numbers.com
-- Integrate data from Wikipedia and the-number.com into the database table
 
 ### TODO
 
+- [ ] Write an API to extract data from the-numbers.com
+- [ ] Extract budget and total gross data from the-numbers.com
+- [ ] Integrate data from Wikipedia and the-number.com into the database table
 - [ ] Deploy to production environment
 
 ## Dashboard Features
