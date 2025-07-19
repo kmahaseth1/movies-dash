@@ -66,31 +66,22 @@ def clean_infobox(text):
     text = re.sub("\[.*?\]", "", text)
     return text.strip()
 
-def get_film_details(wikitext):
+def get_prod_country(wikitext):
     """
     Extract production country and language from Wikipedia API
     """
-
-    language = None
     country = None
-
-    lang_match = re.search("\|\s*language\s*=\s*([\s\S]+?)(?:\n\||\n\})", 
-                           wikitext, re.IGNORECASE)
     country_match = re.search("\|\s*country\s*=\s*([\s\S]+?)(?:\n\||\n\})", 
                               wikitext, re.IGNORECASE)
-
-    if lang_match:
-        language = clean_infobox(lang_match.group(1))
-
     if country_match:
         country = clean_infobox(country_match.group(1))
 
-    return language, country
+    return country
 
 # Test
-title = "The Northman"
+title = "Oppenheimer"
 wiki_pg = get_best_wiki_page(title)
 wiki_text = get_raw_wiki(wiki_pg)
-language, country = get_film_details(wiki_text)
-print(language, country)
+country = get_prod_country(wiki_text)
+print(country)
 
