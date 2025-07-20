@@ -42,7 +42,6 @@ external_stylesheets = [
 years = films['release_year'].dropna().sort_values().unique()
 genres = films['genre'].dropna().sort_values().unique()
 types = films['type'].dropna().sort_values().unique()
-countries = films['production_country'].dropna().sort_values().unique()
 
 # Create a Dash object and set its title
 app = Dash(__name__, external_stylesheets=external_stylesheets)
@@ -106,25 +105,6 @@ app.layout = html.Div(
                             ],
                             clearable=True,
                             searchable=False,
-                            className="dropdown",
-                        ),
-                    ],
-                ),
-                html.Div(
-                    children=[
-                        html.Div(children="Production Country", 
-                                 className="menu-title"),
-                        dcc.Dropdown(
-                            id="country-filter",
-                            options=[
-                                {
-                                    "label": country.title(),
-                                    "value": country,
-                                }
-                                for country in countries
-                            ],
-                            clearable=True,
-                            searchable=True,
                             className="dropdown",
                         ),
                     ],
@@ -198,10 +178,9 @@ app.layout = html.Div(
     Output("rev-vs-quality", "figure"),
     Input("year-filter", "value"),
     Input("genre-filter", "value"),
-    Input("type-filter", "value"),
-    Input("country-filter", "value")
+    Input("type-filter", "value")
 )
-def update_kpis_and_chart(year, genre, type, country):  
+def update_kpis_and_chart(year, genre, type):  
     filtered = films.copy()
 
     if year is not None:
@@ -211,10 +190,7 @@ def update_kpis_and_chart(year, genre, type, country):
         filtered=filtered[filtered['genre']==genre]
 
     if type is not None:
-        filtered=filtered[filtered['type']==type]  
-                     
-    if country is not None:
-        filtered=filtered[filtered['production_country']==country]
+        filtered=filtered[filtered['type']==type]
     
     if filtered.empty:
         return (
