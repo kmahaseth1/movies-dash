@@ -142,8 +142,20 @@ while True:
                         con.commit()
                         print(f"No country info found for '{name} ({release_year})'")
                 else:
+                    cursor.execute(
+                            f"""UPDATE {TABLE_NAME} 
+                                SET {COLUMN_NAME} = ? 
+                                WHERE name = ? AND release_year = ?""",
+                            ("No Raw Data", name, release_year)
+                        )
                     print(f"No wikitext found for '{name} ({release_year})'")
             else:
+                cursor.execute(
+                            f"""UPDATE {TABLE_NAME} 
+                                SET {COLUMN_NAME} = ? 
+                                WHERE name = ? AND release_year = ?""",
+                            ("No Page", name, release_year)
+                        )
                 print(f"No Wikipedia page found for '{name} ({release_year})'")
         except Exception as e:
             print(f"Error processing '{name} ({release_year})': {e}")
