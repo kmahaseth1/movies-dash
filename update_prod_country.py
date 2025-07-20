@@ -89,7 +89,7 @@ def clean_infobox(text):
 
 def get_prod_country(wikitext):
     """
-    Extract production country and language from Wikipedia API
+    Extract production country from Wikipedia API
     """
     country = None
     country_match = re.search("\|\s*country\s*=\s*([\s\S]+?)(?:\n\||\n\})", 
