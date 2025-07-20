@@ -1,10 +1,10 @@
 # Movie Analytics Dashboard (WIP)
 
-An interactive analytics dashboard built with Dash and Plotly to explore movie data from 2020s. This dashboard provides comprehensive insights into movie trends and performance through interactive visualizations and key performance indicators.
+An interactive analytics dashboard built with Dash and Plotly to explore American movie data from 2020s. This dashboard provides comprehensive insights into movie trends and performance through interactive visualizations and key performance indicators.
 
 ## Project Overview
 
-This dashboard analyzes movie data from this decade, offering users the ability to explore various aspects of the film industry including box office performance, genre trends, release patterns, and audience ratings. The application features a clean, modern interface with responsive design and interactive elements.
+This dashboard analyzes movie data from this decade for movies produced in the United States, offering users the ability to explore various aspects of the film industry including box office performance, genre trends, release patterns, and audience ratings. The application features a clean, modern interface with responsive design and interactive elements.
 
 ## Current Status
 
@@ -20,13 +20,12 @@ This dashboard analyzes movie data from this decade, offering users the ability 
 
 ### In Progress
 - Data Correction:
-    - Extract Production Country and Language from Wikipedia API
+    - Extract Production Country from Wikipedia API
 
 ### TODO
 
-- [ ] Write an API to extract data from the-numbers.com
-- [ ] Extract budget and total gross data from the-numbers.com
-- [ ] Integrate data from Wikipedia and the-number.com into the database table
+- [ ] Integrate data from Wikipedia into the database table
+- [ ] Update filters in the dashboard
 - [ ] Deploy to production environment
 
 ## Dashboard Features
@@ -48,11 +47,10 @@ This dashboard analyzes movie data from this decade, offering users the ability 
 - Year
 - Genre
 - Movie Type
-- Production country
 
 ## Technical Stack
 
 - Framework: Dash
 - Visualization: Plotly
 - Data Processing: Pandas, NumPy
-- Data Source: The Movie Database (TMDB) API
+- Data Source: The Movie Database (TMDB) API and Wikipedia API
