@@ -19,6 +19,7 @@ films = pd.read_sql(
         AND budget > 100000
         AND vote_average > 0
         AND revenue > 0
+        AND production_country2 = 'United States' 
     ''',
     con
 )
