@@ -58,7 +58,7 @@ cursor.execute("DROP TABLE IF EXISTS movie_data_raw")
 con.commit()
 con.close()
 
-"""
+
 # See the data table
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
@@ -72,3 +72,33 @@ for row in rows:
     print(row)
 
 con.close()
+
+
+# Path to your SQLite database file
+db = 'movies_2020.db'
+
+# Connect to the database (just to ensure it's not open)
+try:
+    con = sqlite3.connect(db)
+    con.close()
+    print(f"Successfully connected to {db}.")
+except sqlite3.Error as e:
+    print(f"Error while connecting to database: {e}")
+
+# Now delete the database file
+if os.path.exists(db):
+    os.remove(db)
+    print(f"Database file '{db}' deleted successfully.")
+else:
+    print(f"Database file '{db}' does not exist.")
+"""
+
+# Connect to your database
+con = sqlite3.connect('movies_2020s.db')
+cursor = con.cursor()
+
+df = pd.read_sql_query("SELECT * FROM movie_data_raw WHERE name like 'Sol Invictus'", con)
+
+# Display as a table
+print(df)
+# 94 rows as of 9:28pm
