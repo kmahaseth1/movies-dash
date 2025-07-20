@@ -53,7 +53,8 @@ app.layout = html.Div(
     children=[
         html.Div(
             children=[
-                html.H1(children="2020s in Film", className="header-title"),
+                html.H1(children="2020s in American Film", 
+                        className="header-title"),
                  ], className="header"
         ),
         html.Div(
