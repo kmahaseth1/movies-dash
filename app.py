@@ -16,9 +16,8 @@ films = pd.read_sql(
         AND release_year IS NOT NULL
         AND TRIM(release_year) <> ''
         AND TRIM(genre) <> ''
-        AND budget > 100000
+        AND budget > 50000
         AND vote_average > 0
-        AND revenue > 0
         AND production_country2 = 'United States' 
     ''',
     con
