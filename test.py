@@ -97,7 +97,7 @@ else:
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
 
-df = pd.read_sql_query("SELECT * FROM movie_data_raw WHERE name like 'Sol Invictus'", con)
+df = pd.read_sql_query("SELECT * FROM movie_data_raw WHERE production_country2 IS NOT NULL", con)
 
 # Display as a table
 print(df)
