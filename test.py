@@ -102,3 +102,4 @@ df = pd.read_sql_query("SELECT * FROM movie_data_raw WHERE production_country2 I
 # Display as a table
 print(df)
 # 94 rows as of 9:28pm
+# 19576 rows as of 8:59pm
