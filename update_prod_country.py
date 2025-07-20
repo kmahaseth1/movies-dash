@@ -133,6 +133,13 @@ while True:
                         con.commit()
                         print(f"Updated '{name} ({release_year})' with: {country}")
                     else:
+                        cursor.execute(
+                            f"""UPDATE {TABLE_NAME} 
+                                SET {COLUMN_NAME} = ? 
+                                WHERE name = ? AND release_year = ?""",
+                            ("Not Found", name, release_year)
+                        )
+                        con.commit()
                         print(f"No country info found for '{name} ({release_year})'")
                 else:
                     print(f"No wikitext found for '{name} ({release_year})'")
