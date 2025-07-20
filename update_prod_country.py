@@ -1,11 +1,32 @@
 import requests
 import re
+import sqlite3
+import time
 
+# Config
+DB = "movies_2020s.db"
+TABLE_NAME = "movie_data_raw"
+COLUMN_NAME = "production_country2"
+BATCH_SIZE = 100
 URL = "https://en.wikipedia.org/w/api.php"
 HEADERS = {
     "User-Agent": "MovieDataScript/1.0"
 }
 
+# Connect to the database
+con = sqlite3.connect(DB)
+cursor = con.cursor()
+
+# Add column if first time running the script
+cursor.execute(f"PRAGMA table_info({TABLE_NAME})")
+columns = [row[1] for row in cursor.fetchall()]
+if COLUMN_NAME not in columns:
+    cursor.execute(f"ALTER TABLE {TABLE_NAME} ADD COLUMN {COLUMN_NAME} TEXT")
+    print(f"Added column '{COLUMN_NAME}' to '{TABLE_NAME}'.")
+else:
+    print(f"Column '{COLUMN_NAME}' already exists.")
+
+# Helper Functions
 def get_best_wiki_page(name):
     """
     Search Wikipedia and return the best page
@@ -78,10 +99,51 @@ def get_prod_country(wikitext):
 
     return country
 
-# Test
-title = "Oppenheimer"
-wiki_pg = get_best_wiki_page(title)
-wiki_text = get_raw_wiki(wiki_pg)
-country = get_prod_country(wiki_text)
-print(country)
+# Batch process the data
+total_processed = 0
+while True:
+    cursor.execute(
+        f"""SELECT name, release_year FROM {TABLE_NAME} 
+            WHERE {COLUMN_NAME} IS NULL 
+            LIMIT ?""", 
+        (BATCH_SIZE,)
+    )
+    batch = cursor.fetchall()
+    if not batch:
+        print("All rows processed.")
+        break
 
+    for name, release_year in batch:
+        try:
+            query_string = f"{name} {release_year} film"
+            print(f"Processing: {query_string}")
+
+            best_page = get_best_wiki_page(query_string)
+            if best_page:
+                wikitext = get_raw_wiki(best_page)
+                if wikitext:
+                    country = get_prod_country(wikitext)
+                    if country:
+                        cursor.execute(
+                            f"""UPDATE {TABLE_NAME} 
+                                SET {COLUMN_NAME} = ? 
+                                WHERE name = ? AND release_year = ?""",
+                            (country, name, release_year)
+                        )
+                        con.commit()
+                        print(f"Updated '{name} ({release_year})' with: {country}")
+                    else:
+                        print(f"No country info found for '{name} ({release_year})'")
+                else:
+                    print(f"No wikitext found for '{name} ({release_year})'")
+            else:
+                print(f"No Wikipedia page found for '{name} ({release_year})'")
+        except Exception as e:
+            print(f"Error processing '{name} ({release_year})': {e}")
+        time.sleep(1)  # Respect API rate limits
+
+    total_processed += len(batch)
+    print(f"Batch complete. Total processed: {total_processed}\n")
+
+con.close()
+print("Done.")
