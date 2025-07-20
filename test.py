@@ -97,9 +97,15 @@ else:
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
 
-df = pd.read_sql_query("SELECT * FROM movie_data_raw WHERE production_country2 IS NOT NULL", con)
-
+df = pd.read_sql_query("SELECT production_country2 FROM movie_data_raw", con)
+df_full = pd.read_sql_query("""
+                            SELECT * FROM movie_data_raw 
+                            WHERE production_country2 IS NOT NULL
+                            """
+                            , con)
 # Display as a table
-print(df)
+print(len(df_full))
+print(df['production_country2'].value_counts())
 # 94 rows as of 9:28pm
 # 19576 rows as of 8:59pm
+# 21,064 as of 9:45
