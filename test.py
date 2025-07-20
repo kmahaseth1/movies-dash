@@ -109,3 +109,4 @@ print(df['production_country2'].value_counts())
 # 94 rows as of 9:28pm
 # 19576 rows as of 8:59pm
 # 21,064 as of 9:45
+# 30,344 as of 2:40
