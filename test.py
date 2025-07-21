@@ -97,27 +97,24 @@ else:
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
 
-df = pd.read_sql_query("SELECT * FROM movie_data_raw", con)
+cursor.execute("""
+    UPDATE movie_data_raw
+    SET production_country2 = 
+        CASE
+            WHEN SUBSTR(production_country2, 1, 13) = 'United States' THEN 'United States of America'
+            WHEN production_country2 = 'Not Found' THEN 'Not Found'
+            WHEN production_country2 = 'No Page' THEN 'No Page'
+            ELSE 'other'
+        END;
+"""
+)
 
-"""
-# Display as a table
-countries = list(df['production_country2'].unique())
-for i, country in enumerate(countries):
-    print(f"{i}. {country}")
-"""
+
 df = pd.read_sql(
     '''
     SELECT * FROM movie_data_raw
-    WHERE name IS NOT NULL
-        AND genre IS NOT NULL
-        AND genre <> 'Documentary'
-        AND release_year IS NOT NULL
-        AND TRIM(release_year) <> ''
-        AND TRIM(genre) <> ''
-        AND budget > 50000
-        AND production_country2 = 'United States'
-        AND name = 'Dinosaur Train: Adventure Island'
     ''',
     con
 )
-print(df.head())
+
+print(df['production_country2'].value_counts())
