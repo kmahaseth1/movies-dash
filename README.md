@@ -54,3 +54,10 @@ This dashboard analyzes movie data from this decade for movies produced in the U
 - Visualization: Plotly
 - Data Processing: Pandas, NumPy
 - Data Source: The Movie Database (TMDB) API and Wikipedia API
+
+## Resources
+
+1. [Real Python Dash Tutorial](https://realpython.com/python-dash/): Very helpful manual on building simple dashboards using Dash and Plotly
+2. [Plotly Express Documentation](https://plotly.com/python/plotly-express/): Good reference on creating different charts using the Plotly Express API
+3. Chapter 17 of *Python Crash Course* by Eric Matthes (3rd ed.): Useful tutorial on working with web APIs to extract data and using Plotly to visualize them
+4. Chapter 7 of *Automate the Boring Stuff with Python* by Al Sweigart (2nd ed.): Informative guide on applying regular expressions to accurately extract specific string patterns from text data
