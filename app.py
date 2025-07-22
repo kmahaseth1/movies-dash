@@ -349,7 +349,7 @@ def update_kpis_and_chart(year, genre, type):
                 title="Voter Score vs. Log-Transformed Revenue", 
                 labels={'vote_average': 'Average voter score', 
                         'revenue': 'Log of Revenue'}, opacity=0.4,
-                        log_y=True)
+                        log_y=True, hover_data='name')
     fig5.update_layout(title_x=0.5, title_font_size=24, 
                    title_font=dict(color=dash_color),
                    xaxis_title_font_size=16,
