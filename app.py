@@ -123,13 +123,6 @@ app.layout = html.Div(
                             id="highest-grosser", className="bottom")
             ], className="box"),
                 html.Div(children=[
-                        html.P("Highest Rated Movie",
-                            className="top"
-            ),
-                        html.P(
-                            id="highest-rated", className="bottom")
-            ], className="box"), 
-                html.Div(children=[
                         html.P(id="lead-genre", className="top"
             ),
                         html.P(
@@ -168,7 +161,6 @@ app.layout = html.Div(
 # Define callback functions to make the filters interactive
 @app.callback(
     Output("highest-grosser", "children"),
-    Output("highest-rated", "children"),
     Output("most-pop-genre", "children"),
     Output("total-rev", "children"),
     Output("total-films", "children"),
@@ -209,7 +201,6 @@ def update_kpis_and_chart(year, genre, type):
     
     # KPI card calculations and titles
     highest_grosser = filtered.loc[filtered['revenue'].idxmax(), 'name']
-    highest_scorer = filtered.loc[filtered['vote_average'].idxmax(), 'name']
     most_pop_genre = filtered['genre'].value_counts().idxmax().title()
     cum_rev = filtered['revenue'].sum() / 1000000
     total_films = len(filtered['name'])
@@ -373,9 +364,8 @@ def update_kpis_and_chart(year, genre, type):
     fig5.update_yaxes(tickfont=dict(color=dash_color))
 
     return (
-        f"{highest_grosser}", f"{highest_scorer}", f"{most_pop_genre}", 
-        f"${cum_rev:,.0f} MM", f"{total_films:,}", genre_card_top, 
-        fig2, fig3, fig4, fig5)
+        f"{highest_grosser}", f"{most_pop_genre}", f"${cum_rev:,.0f} MM", 
+        f"{total_films:,}", genre_card_top, fig2, fig3, fig4, fig5)
 
 # Run the dashboard
 if __name__ == "__main__":
