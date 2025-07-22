@@ -28,11 +28,10 @@ This dashboard analyzes movie data from this decade for movies produced in the U
 ## Dashboard Features
 
 ### Key Performance Indicators (KPIs)
-- Total movies released
-- Average box office revenue
-- Top-performing movies
-- Audience rating trends
-- Release count by year
+- Highest Grossing Movie
+- Leading Genre
+- Total Cumulative Revenue
+- Total Movies
 
 ### Interactive Charts
 - Top 10 Grossers
