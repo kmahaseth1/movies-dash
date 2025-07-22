@@ -117,4 +117,8 @@ df = pd.read_sql(
     con
 )
 
-print(df['production_country2'].value_counts())
+con.commit()
+
+con.close()
+
+print(df.head())
