@@ -19,10 +19,9 @@ This dashboard analyzes movie data from this decade for movies produced in the U
 - Full Data Integration: Includes all movies with complete data from 2020s present in the TMDB
 
 ### In Progress
-- Final UI Changes (Assign colors to genres for the bar chart, make movie name font size on KPI cards dynamic)
+[ ] Add a data dictionary or similar document
 
 ### TODO
-- [ ] Add a data dictionary or similar document
 - [ ] Deploy to production environment
 
 ## Dashboard Features
