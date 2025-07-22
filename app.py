@@ -276,7 +276,10 @@ def update_kpis_and_chart(year, genre, type):
                 'Horror':'#E1D9C9',
                 'Science Fiction':'#AE9372',
                 'Thriller': '#B27D57',
-                'Other': '#7F4B30'
+                'Other': '#7F4B30',
+                'Music': '#B08474',
+                'Adventure': '#5E3838',
+                'Fantasy': '#7A3B12'
             }
         )
         fig3.update_layout(title_x=0.5, title_font_size=24, 
@@ -302,7 +305,10 @@ def update_kpis_and_chart(year, genre, type):
                         '#7F4B30',
                         '#B27D57',
                         '#AE9372',
-                        '#E1D9C9'
+                        '#E1D9C9',
+                        '#B08474',
+                        '#5E3838',
+                        '#7A3B12'
             ])
         fig3.update_layout(title_x=0.5, title_font_size=24, 
                     title_font=dict(color=dash_color))
