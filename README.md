@@ -19,13 +19,10 @@ This dashboard analyzes movie data from this decade for movies produced in the U
 - Full Data Integration: Includes all movies with complete data from 2020s present in the TMDB
 
 ### In Progress
-- Data Correction:
-    - Extract Production Country from Wikipedia API
+- Final UI Changes (Assign colors to genres for the bar chart, make movie name font size on KPI cards dynamic)
 
 ### TODO
-
-- [ ] Integrate data from Wikipedia into the database table
-- [ ] Update filters in the dashboard
+- [ ] Add a data dictionary or similar document
 - [ ] Deploy to production environment
 
 ## Dashboard Features
@@ -53,7 +50,8 @@ This dashboard analyzes movie data from this decade for movies produced in the U
 - Framework: Dash
 - Visualization: Plotly
 - Data Processing: Pandas, NumPy
-- Data Source: The Movie Database (TMDB) API and Wikipedia API
+- Data Sources: The Movie Database (TMDB) API and Wikipedia API
+- Deployment Platform: Render
 
 ## Resources
 
