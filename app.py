@@ -18,12 +18,13 @@ films = pd.read_sql(
         AND TRIM(genre) <> ''
         AND budget > 50000
         AND vote_average < 10
-        AND production_country2 = 'United States' 
+        AND production_country2 = 'United States of America'
     ''',
     con
 )
 
 con.close()
+
 # Set the variable to toggle cards and charts' colors
 dash_color = '#7b5e57'
 
@@ -194,6 +195,7 @@ def update_kpis_and_chart(year, genre, type):
     
     if filtered.empty:
         return (
+            "No data available",
             "No data available",
             "No data available",
             "No data available",
