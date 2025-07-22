@@ -96,7 +96,7 @@ else:
 # Connect to your database
 con = sqlite3.connect('movies_2020s.db')
 cursor = con.cursor()
-
+'''
 cursor.execute("""
     UPDATE movie_data_raw
     SET production_country2 = 
@@ -108,6 +108,22 @@ cursor.execute("""
         END;
 """
 )
+'''
+cursor.execute("ALTER TABLE movie_data_raw DROP COLUMN production_country_final")
+cursor.execute("ALTER TABLE movie_data_raw ADD COLUMN production_country_final")
+
+cursor.execute("""
+UPDATE movie_data_raw 
+SET production_country_final = 
+    CASE 
+        WHEN production_country = production_country2 THEN production_country
+        WHEN budget < 1000000 THEN production_country
+        ELSE production_country2
+    END
+""")
+
+con.commit()
+
 
 
 df = pd.read_sql(
@@ -116,9 +132,5 @@ df = pd.read_sql(
     ''',
     con
 )
-
-con.commit()
-
 con.close()
-
 print(df.head())
