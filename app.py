@@ -143,7 +143,7 @@ app.layout = html.Div(
                             id="total-rev", className="bottom")
             ], className="box"),
                 html.Div(children=[
-                        html.P("Total Movies Released",
+                        html.P("Total Movies",
                             className="top"
             ),
                         html.P(
