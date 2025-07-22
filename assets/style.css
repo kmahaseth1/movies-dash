@@ -91,11 +91,11 @@ body {
 }
 
 #budget-distribution {
-    width: calc(45% - 5px);
+    width: calc(55% - 5px);
 }
 
 #rev-vs-quality {
-    width: calc(55% - 5px);
+    width: calc(45% - 5px);
 }
 
 .menu-title {
