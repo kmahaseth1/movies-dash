@@ -32,7 +32,7 @@ This dashboard analyzes movie data from this decade for movies produced in the U
 - Average box office revenue
 - Top-performing movies
 - Audience rating trends
-- Release frequency by year
+- Release count by year
 
 ### Interactive Charts
 - Top 10 Grossers
