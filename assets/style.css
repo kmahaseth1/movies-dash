@@ -64,8 +64,9 @@ body {
     flex: 3;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     font-size: 20px;
+    font-weight: bold;
     margin: 0;
     color: #3b7e7b;
 }
