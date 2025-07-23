@@ -203,7 +203,7 @@ def update_kpis_and_chart(year, genre, type):
     # KPI card calculations and titles
     highest_grosser = filtered.loc[filtered['revenue'].idxmax(), 'name']
     most_pop_genre = filtered['genre'].value_counts().idxmax().title()
-    cum_rev = filtered['revenue'].sum() / 1000000
+    cum_rev = filtered['revenue'].sum() / 1000000000
     total_films = len(filtered['name'])
     genre_card_top="Leading Genre by Release Count"
 
@@ -379,7 +379,7 @@ def update_kpis_and_chart(year, genre, type):
 
     return (
         f"{highest_grosser}", dynamic_stlye, f"{most_pop_genre}", 
-        f"${cum_rev:,.0f} MM", f"{total_films:,}", genre_card_top, fig2, fig3, 
+        f"${cum_rev:,.0f} B", f"{total_films:,}", genre_card_top, fig2, fig3, 
         fig4, fig5)
 
 # Run the dashboard
