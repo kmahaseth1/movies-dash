@@ -1,5 +1,4 @@
 import requests
-import time
 import json
 
 def get_movie_details(details_url, api_key, id):
