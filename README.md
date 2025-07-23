@@ -2,7 +2,7 @@
 
 An interactive analytics dashboard to explore American movie data from 2020s. This dashboard provides comprehensive insights into movie trends and performance through interactive visualizations and key performance indicators.
 
-![GIF](movies_dash_demo.gif)
+![GIF](dash_demo.gif)
 
 ## Overview
 
