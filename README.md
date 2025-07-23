@@ -1,12 +1,35 @@
 # Movie Analytics Dashboard
 
-An interactive analytics dashboard built with Dash and Plotly to explore American movie data from 2020s. This dashboard provides comprehensive insights into movie trends and performance through interactive visualizations and key performance indicators.
+An interactive analytics dashboard to explore American movie data from 2020s. This dashboard provides comprehensive insights into movie trends and performance through interactive visualizations and key performance indicators.
 
 ![GIF](movies_dash_demo.gif)
 
-## Project Overview
+## Overview
 
-This dashboard analyzes movie data from this decade for movies produced in the United States, offering users the ability to explore various aspects of the film industry including box office performance, genre trends, release patterns, and audience ratings. The application features a clean, modern interface with responsive design and interactive elements.
+This interactive dashboard analyzes movie data from the 2020s, providing comprehensive insights into film industry trends and performance through dynamic visualizations and key performance indicators. Built with Dash and Plotly to deliver a professional, data-driven exploration experience for movie enthusiasts, industry professionals, and analysts.
+What You Can Explore
+### Interactive Filtering:
+
+- Filter by Year (2020s decade) to track industry evolution
+- Browse by Genre to compare performance across film categories
+- Toggle Movie Type (Live Action vs Animation)
+- Filter by Production Country to focus on specific markets
+
+### Key Performance Indicators:
+
+- Total Movies Released - Track industry output over time
+- Average Box Office Revenue - Monitor financial performance trends
+- Top-Performing Movies - Identify breakout successes
+- Audience Rating Trends - Analyze reception patterns
+
+### Interactive Visualizations:
+
+- Top 10 Grossers - See the highest-earning films with dynamic ranking
+- Genre Distribution - Understand market composition and shifts
+- Budget Distribution by Year - Analyze investment patterns across the decade
+- Revenue vs. Ratings Scatter Plot - Explore the relationship between commercial success and audience reception
+
+The dashboard features responsive design with hover-enabled charts, dynamic filtering via Dash callbacks, and professional styling that makes complex film industry data accessible and engaging.
 
 Visit the live dashboard [here](https://movies-dash.onrender.com) (*Note: The site might take some time to load since I am using the free tier of Render for deployment*)
 
@@ -48,25 +71,6 @@ SET production_country_final =
 The scatter plot uses logarithmic scaling on the y-axis for revenue data. This transformation is essential for the following reasons:
 - Wide value range: Movie revenues span from thousands to billions of dollars (6+ orders of magnitude)
 - Relationship clarity: Log scaling reveals correlations between budget and revenue across all budget ranges, not just blockbusters
-
-## Dashboard Features
-
-### Key Performance Indicators (KPIs)
-- Highest Grossing Movie
-- Leading Genre
-- Total Cumulative Revenue
-- Total Movies
-
-### Interactive Charts
-- Top 10 Grossers
-- Genre Distribution of Releases
-- Budget Distribution by Year
-- Comparison of revenue with audience ratings
-
-### Filtering
-- Year
-- Genre
-- Movie Type
 
 ## Technical Stack
 
