@@ -32,7 +32,7 @@ Movies in TMDB are often assigned multiple genres as movies often blend various 
 - This approach may not capture every film's precise genre (e.g., "Beetlejuice Beetlejuice" is classified as Horror despite its substantial comedic content), but ensures consistent categorization across the dataset without sacrificing accuracy
 
 ### Production Country Validation
-To ensure that only movies produced in the US are used in the dashboard, production country data undergoes cross-validation so that only films listing "United States" as a production country in both TMDB and Wikipedia are included in the dataset. See the SQL code that creates the `production_country_FINAL` column in the database table:
+To ensure that only movies produced in the US are used in the dashboard, production country data undergoes cross-validation so that only films listing "United States" as a production country in both TMDB and Wikipedia are included in the dataset. See the SQL code that creates the `production_country_final` column in the database table:
 ```
 UPDATE movie_data_raw 
 SET production_country_final = 
