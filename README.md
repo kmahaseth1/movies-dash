@@ -2,13 +2,13 @@
 
 An interactive analytics dashboard built with Dash and Plotly to explore American movie data from 2020s. This dashboard provides comprehensive insights into movie trends and performance through interactive visualizations and key performance indicators.
 
-![GIF](https://movies_dash_demo.gif)
+![GIF](movies_dash_demo.gif)
 
 ## Project Overview
 
 This dashboard analyzes movie data from this decade for movies produced in the United States, offering users the ability to explore various aspects of the film industry including box office performance, genre trends, release patterns, and audience ratings. The application features a clean, modern interface with responsive design and interactive elements.
 
-Visit the live dashboard [here](movies-dash.onrender.com)
+Visit the live dashboard [here](https://movies-dash.onrender.com)
 
 ## Notes of Data Management
 
