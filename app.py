@@ -270,7 +270,7 @@ def update_kpis_and_chart(year, genre, type):
         fig3 = px.bar(
             genre_data, 
             x='prop', y='release_year', color='genre', orientation='h', 
-            height = 500,
+            height = 475,
             title="Distribution of Genre of Released Films",
             labels={'prop': 'Proportion of Releases', 'release_year': 'Year'},
             color_discrete_map={
@@ -301,7 +301,7 @@ def update_kpis_and_chart(year, genre, type):
     elif year is not None:
         fig3 = px.pie(genre_data, values='prop', names="genre",
                       title=f"Distribution of Genre of Released Films in {year}", 
-                      hole=0.5, height=500,
+                      hole=0.5, height=475,
                       color_discrete_sequence=[
                         '#212E40',
                         '#173125',
@@ -321,7 +321,7 @@ def update_kpis_and_chart(year, genre, type):
         fig3 = px.bar(
             filtered.groupby('release_year').size().reset_index(name="count"), 
             x='count', y='release_year',
-            height = 500,
+            height = 475,
             title=f"{genre.title()} movies release pattern",
             labels={'count': 'Number of Movies Released', 
                     'release_year': 'Year'}
