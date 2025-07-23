@@ -8,6 +8,8 @@ An interactive analytics dashboard built with Dash and Plotly to explore America
 
 This dashboard analyzes movie data from this decade for movies produced in the United States, offering users the ability to explore various aspects of the film industry including box office performance, genre trends, release patterns, and audience ratings. The application features a clean, modern interface with responsive design and interactive elements.
 
+Visit the live dashboard [here](movies-dash.onrender.com)
+
 ## Notes of Data Management
 
 ### Dataset Overview
