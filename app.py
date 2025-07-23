@@ -129,7 +129,7 @@ app.layout = html.Div(
                             id="most-pop-genre", className="bottom")
             ], className="box"), 
                 html.Div(children=[
-                        html.P("Total Revenue (in millions)",
+                        html.P("Total Gross (in billions)",
                             className="top"
             ),
                         html.P(
