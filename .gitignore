@@ -2,3 +2,4 @@
 __pycache__/
 *.db
 md_env/
+scratch_pad.py
