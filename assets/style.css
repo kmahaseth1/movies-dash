@@ -36,7 +36,7 @@ body {
     border-style: solid;
     background-color: #FFFFFF;
     height: 100px;
-    width: 350px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
