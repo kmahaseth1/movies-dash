@@ -47,8 +47,8 @@ body {
 .top {
     height: 100%;
     width: 100%;
-    font-size: 20px;
-    font-weight: bolder;
+    font-size: 18px;
+    font-weight: bold;
     flex: 2;
     display: flex;
     justify-content: center;
@@ -65,7 +65,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     margin: 0;
     color: #3b7e7b;
