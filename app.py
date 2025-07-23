@@ -301,7 +301,7 @@ def update_kpis_and_chart(year, genre, type):
         fig3.update_yaxes(tickfont=dict(color=dash_color))
     elif year is not None:
         fig3 = px.pie(genre_data, values='prop', names="genre",
-                      title=f"Distribution of Genre of Released Films in {year}", 
+                      title=f"Distribution of Genre of {year} Films", 
                       hole=0.5, height=450,
                       color_discrete_sequence=[
                         '#12452D',
