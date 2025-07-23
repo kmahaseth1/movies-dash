@@ -274,7 +274,7 @@ def update_kpis_and_chart(year, genre, type):
             title="Distribution of Genre of Released Films",
             labels={'prop': 'Proportion of Releases', 'release_year': 'Year'},
             color_discrete_map={
-                'Action': '#212E40',
+                'Action': '#12452D',
                 'Comedy': '#173125',
                 'Drama': '#424C21',
                 'Family': '#7D8769',
@@ -284,7 +284,8 @@ def update_kpis_and_chart(year, genre, type):
                 'Other': '#7F4B30',
                 'Music': '#B08474',
                 'Adventure': '#5E3838',
-                'Fantasy': '#7A3B12'
+                'Fantasy': '#7A3B12',
+                'War': '#8DBD80'
             }
         )
         fig3.update_layout(title_x=0.5, title_font_size=24, 
@@ -303,7 +304,7 @@ def update_kpis_and_chart(year, genre, type):
                       title=f"Distribution of Genre of Released Films in {year}", 
                       hole=0.5, height=450,
                       color_discrete_sequence=[
-                        '#212E40',
+                        '#12452D',
                         '#173125',
                         '#424C21',
                         '#7D8769',
@@ -313,7 +314,8 @@ def update_kpis_and_chart(year, genre, type):
                         '#E1D9C9',
                         '#B08474',
                         '#5E3838',
-                        '#7A3B12'
+                        '#7A3B12',
+                        '#8DBD80'
             ])
         fig3.update_layout(title_x=0.5, title_font_size=24, 
                     title_font=dict(color=dash_color))
