@@ -68,7 +68,7 @@ The scatter plot uses logarithmic scaling on the y-axis for revenue data. This t
 
 ## Technical Stack
 
-- **Frontend:** Dash, HTML, CSS
+- **Frontend:** Dash, CSS
 - **Backend:** Python
 - **Database:** SQLite3
 - **Data Processing:** Pandas, Plotly
